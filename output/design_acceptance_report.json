@@ -1,0 +1,333 @@
+{
+  "summary": {
+    "frames": 5,
+    "processed_objects": 203,
+    "new_nodes": 69,
+    "updated_nodes": 107,
+    "new_edges": 399,
+    "duplicate_edges": 73,
+    "conflict_edges": 168,
+    "owner_assigned": 3
+  },
+  "graph_stats": {
+    "nodes": 68,
+    "edges": 399,
+    "invalid_edges": 168,
+    "candidate_nodes": 37,
+    "attached_nodes": 14,
+    "attached_with_owner": 3,
+    "changed_nodes": 0,
+    "dynamic_state_distribution": {
+      "active": 2,
+      "inactive": 0,
+      "disappeared": 0
+    },
+    "structured_edges": 399,
+    "relation_action_stats": {
+      "new": 399,
+      "duplicate": 73,
+      "conflict": 168
+    },
+    "relation_action_event_stats": {
+      "new": 399,
+      "duplicate": 73,
+      "conflict": 168
+    },
+    "owner_event_stats": {
+      "assign": 3,
+      "keep": 0,
+      "candidate": 12,
+      "switch": 0,
+      "skip": 14
+    }
+  },
+  "samples": {
+    "edge_new": [
+      {
+        "frame_id": 0,
+        "action": "new",
+        "from_node_id": 1,
+        "to_node_id": 25,
+        "describe": "sign displaying score for floor",
+        "edge_id": 1,
+        "reason": "insert_new_relation"
+      },
+      {
+        "frame_id": 0,
+        "action": "new",
+        "from_node_id": 1,
+        "to_node_id": 30,
+        "describe": "sign over court lines",
+        "edge_id": 2,
+        "reason": "insert_new_relation"
+      },
+      {
+        "frame_id": 0,
+        "action": "new",
+        "from_node_id": 1,
+        "to_node_id": 6,
+        "describe": "sign visible to player",
+        "edge_id": 3,
+        "reason": "insert_new_relation"
+      },
+      {
+        "frame_id": 0,
+        "action": "new",
+        "from_node_id": 1,
+        "to_node_id": 3,
+        "describe": "man below sign",
+        "edge_id": 4,
+        "reason": "insert_new_relation"
+      },
+      {
+        "frame_id": 0,
+        "action": "new",
+        "from_node_id": 1,
+        "to_node_id": 15,
+        "describe": "sign adjacent to banner",
+        "edge_id": 5,
+        "reason": "insert_new_relation"
+      }
+    ],
+    "edge_duplicate": [
+      {
+        "frame_id": 1,
+        "action": "duplicate",
+        "from_node_id": 3,
+        "to_node_id": 15,
+        "describe": "banner behind man",
+        "edge_id": null,
+        "reason": "rule_same_describe"
+      },
+      {
+        "frame_id": 1,
+        "action": "duplicate",
+        "from_node_id": 10,
+        "to_node_id": 25,
+        "describe": "floor below basketball hoop",
+        "edge_id": null,
+        "reason": "rule_same_describe"
+      },
+      {
+        "frame_id": 1,
+        "action": "duplicate",
+        "from_node_id": 15,
+        "to_node_id": 25,
+        "describe": "floor below banner",
+        "edge_id": null,
+        "reason": "rule_same_describe"
+      },
+      {
+        "frame_id": 1,
+        "action": "duplicate",
+        "from_node_id": 15,
+        "to_node_id": 3,
+        "describe": "banner behind man",
+        "edge_id": null,
+        "reason": "rule_same_describe"
+      },
+      {
+        "frame_id": 1,
+        "action": "duplicate",
+        "from_node_id": 25,
+        "to_node_id": 10,
+        "describe": "floor below basketball hoop",
+        "edge_id": null,
+        "reason": "rule_same_describe"
+      }
+    ],
+    "edge_conflict": [
+      {
+        "frame_id": 1,
+        "action": "conflict",
+        "from_node_id": 3,
+        "to_node_id": 10,
+        "describe": "man aim at basketball hoop",
+        "edge_id": null,
+        "reason": "rule_same_endpoints_diff_describe"
+      },
+      {
+        "frame_id": 1,
+        "action": "conflict",
+        "from_node_id": 3,
+        "to_node_id": 6,
+        "describe": "man man face away from man player",
+        "edge_id": null,
+        "reason": "rule_same_endpoints_diff_describe"
+      },
+      {
+        "frame_id": 1,
+        "action": "conflict",
+        "from_node_id": 3,
+        "to_node_id": 1,
+        "describe": "man poster behind man sign",
+        "edge_id": null,
+        "reason": "rule_same_endpoints_diff_describe"
+      },
+      {
+        "frame_id": 1,
+        "action": "conflict",
+        "from_node_id": 3,
+        "to_node_id": 25,
+        "describe": "man walk on floor",
+        "edge_id": null,
+        "reason": "rule_same_endpoints_diff_describe"
+      },
+      {
+        "frame_id": 1,
+        "action": "conflict",
+        "from_node_id": 10,
+        "to_node_id": 6,
+        "describe": "basketball hoop man stand near basketball hoop player",
+        "edge_id": null,
+        "reason": "rule_same_endpoints_diff_describe"
+      }
+    ],
+    "owner_assign": [
+      {
+        "frame_id": 0,
+        "attached_node_id": 58,
+        "event_type": "assign",
+        "owner_node_id": 17,
+        "owner_label": "water bottle",
+        "reason": "first_owner_assignment"
+      },
+      {
+        "frame_id": 2,
+        "attached_node_id": 46,
+        "event_type": "assign",
+        "owner_node_id": 29,
+        "owner_label": "advertisement",
+        "reason": "first_owner_assignment"
+      },
+      {
+        "frame_id": 2,
+        "attached_node_id": 66,
+        "event_type": "assign",
+        "owner_node_id": 30,
+        "owner_label": "court lines",
+        "reason": "first_owner_assignment"
+      }
+    ],
+    "owner_switch": [],
+    "owner_skip": [
+      {
+        "frame_id": 0,
+        "attached_node_id": 45,
+        "event_type": "skip",
+        "owner_node_id": null,
+        "owner_label": null,
+        "reason": "predicate_not_owner_like"
+      },
+      {
+        "frame_id": 0,
+        "attached_node_id": 52,
+        "event_type": "skip",
+        "owner_node_id": null,
+        "owner_label": null,
+        "reason": "predicate_not_owner_like"
+      },
+      {
+        "frame_id": 1,
+        "attached_node_id": 39,
+        "event_type": "skip",
+        "owner_node_id": null,
+        "owner_label": null,
+        "reason": "predicate_not_owner_like"
+      },
+      {
+        "frame_id": 1,
+        "attached_node_id": 36,
+        "event_type": "skip",
+        "owner_node_id": null,
+        "owner_label": null,
+        "reason": "predicate_not_owner_like"
+      },
+      {
+        "frame_id": 2,
+        "attached_node_id": 66,
+        "event_type": "skip",
+        "owner_node_id": null,
+        "owner_label": null,
+        "reason": "predicate_not_owner_like"
+      }
+    ]
+  },
+  "requirement_checks": {
+    "entity_node_model": {
+      "status": "pass",
+      "ok": true,
+      "note": "nodes=68"
+    },
+    "relation_edge_model": {
+      "status": "pass",
+      "ok": true,
+      "note": "edges=399"
+    },
+    "candidate_pipeline": {
+      "status": "pass",
+      "ok": true,
+      "note": "candidate_nodes=37"
+    },
+    "node_process_implemented": {
+      "status": "pass",
+      "ok": true,
+      "note": "processed_objects=203"
+    },
+    "edge_process_implemented": {
+      "status": "pass",
+      "ok": true,
+      "note": "frames=5, new_edges=399"
+    },
+    "dynamic_lifecycle": {
+      "status": "pass",
+      "ok": true,
+      "note": "dynamic_nodes=2, lifecycle_touched=0"
+    },
+    "attached_owner_pipeline": {
+      "status": "pass",
+      "ok": true,
+      "note": "attached_nodes=14, with_owner=3"
+    },
+    "owner_resolution_activity": {
+      "status": "pass",
+      "ok": true,
+      "note": "owner_assigned=3"
+    },
+    "edge_valid_invalid_support": {
+      "status": "pass",
+      "ok": true,
+      "note": "invalid_edges=168"
+    },
+    "edge_conflict_tracking": {
+      "status": "pass",
+      "ok": true,
+      "note": "duplicate_edges=73, conflict_edges=168"
+    },
+    "relation_action_event_logging": {
+      "status": "pass",
+      "ok": true,
+      "note": "edge_action_events=640"
+    },
+    "node_change_cascade_rewrite": {
+      "status": "pass",
+      "ok": true,
+      "note": "structured_edges=399, changed_nodes=0"
+    },
+    "neo4j_writable": {
+      "status": "fail",
+      "ok": false,
+      "note": "enabled via --use-neo4j"
+    },
+    "llm_decision_hooked": {
+      "status": "fail",
+      "ok": false,
+      "note": "enabled via --enable-llm"
+    }
+  },
+  "overall": {
+    "pass_count": 12,
+    "total_count": 14,
+    "pass_rate": 0.8571428571428571
+  }
+}
