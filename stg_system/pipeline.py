@@ -19,6 +19,12 @@ from .models import GraphState
 from .node_processor import FrameProcessResult, FrameProcessor
 from .storage import Neo4jConfig, Neo4jStorage
 
+# 进度条
+try:
+    from tqdm import tqdm
+except ImportError:
+    tqdm = None
+
 
 @dataclass(slots=True)
 class PipelineSummary:
@@ -57,10 +63,9 @@ class SpatialTemporalPipeline:
     def run(self, input_json_path: str, max_frames: int | None = None) -> PipelineSummary:
         """执行完整离线处理。
 
-返回 PipelineSummary，供 CLI 与报告模块使用。
-"""
+        返回 PipelineSummary，供 CLI 与报告模块使用。
+        """
         frames = self._load_json(input_json_path)
-        # frames = payload if isinstance(payload, list) else payload.get("frames", [])
         if not isinstance(frames, list):
             raise ValueError("Input JSON should be a list[frame] or {'frames': list[frame]}")
 
@@ -73,7 +78,8 @@ class SpatialTemporalPipeline:
 
         summary = PipelineSummary(total_frames=len(frames))
 
-        for frame_id, frame in enumerate(frames):
+        progress_iter = tqdm(frames, desc="Processing frames", unit="frame") if tqdm else frames
+        for frame_id, frame in enumerate(progress_iter):
             objects = frame.get("objects", [])
             if not isinstance(objects, list):
                 continue
