@@ -162,6 +162,7 @@ class SpatialTemporalPipeline:
             "source_label": edge.source_label,
             "target_label": edge.target_label,
             "type": edge.edge_type.value,
+            "is_attached": edge.is_attached,
             "valid_at": edge.valid_at,
             "invalid_at": edge.invalid_at,
         }

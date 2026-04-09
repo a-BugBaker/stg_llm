@@ -115,6 +115,7 @@ class Neo4jStorage:
             "e.source_label=$source_label, "
             "e.target_label=$target_label, "
             "e.edge_type=$edge_type, "
+            "e.is_attached=$is_attached, "
             "e.valid_at=$valid_at, "
             "e.invalid_at=$invalid_at"
         )
@@ -131,6 +132,7 @@ class Neo4jStorage:
                     source_label=edge.source_label,
                     target_label=edge.target_label,
                     edge_type=edge.edge_type.value,
+                    is_attached=edge.is_attached,
                     valid_at=edge.valid_at,
                     invalid_at=edge.invalid_at,
                 )

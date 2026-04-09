@@ -116,6 +116,7 @@ class RelationEdge:
     target_label: str
     edge_type: EdgeType
     valid_at: int
+    is_attached: bool = False
     invalid_at: Optional[int] = None
 
 
