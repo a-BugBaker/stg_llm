@@ -68,7 +68,7 @@ class FrameProcessor:
 """
         result = FrameProcessResult(frame_id=frame_id)
         processed_idx: Set[int] = set()
-        frame_map: Dict[int, int] = {}
+        frame_map: Dict[int, int] = {}  # idx: node id
 
         for obj in objects:
             idx = int(obj.get("idx", -1))
@@ -90,7 +90,7 @@ class FrameProcessor:
 
         self.graph.frame_idx_map[frame_id] = frame_map
         self._update_dynamic_lifecycle(frame_id)
-        self._rewrite_edges_for_node_changes(frame_id)
+        # self._rewrite_edges_for_node_changes(frame_id)
         edge_stats = self._edge_process(objects, frame_id, frame_map)
         result.new_edges = edge_stats["new_edges"]
         result.duplicate_edges = edge_stats["duplicate_edges"]
@@ -372,24 +372,24 @@ class FrameProcessor:
 
         node.candidate.attribute.append((observed_attr, frame_id))
 
-    def _rewrite_edges_for_node_changes(self, frame_id: int) -> None:
-        """节点标签变化后的边描述级联更新。"""
-        for node_id, changes in self.graph.changed_nodes.items():
-            for change_frame, _old_label, new_label in changes:
-                if change_frame != frame_id:
-                    continue
+    # def _rewrite_edges_for_node_changes(self, frame_id: int) -> None:
+    #     """节点标签变化后的边描述级联更新。"""
+    #     for node_id, changes in self.graph.changed_nodes.items():
+    #         for change_frame, _old_label, new_label in changes:
+    #             if change_frame != frame_id:
+    #                 continue
 
-                for edge in self.graph.edges.values():
-                    if edge.invalid_at is not None:
-                        continue
-                    if edge.from_node_id != node_id and edge.to_node_id != node_id:
-                        continue
+    #             for edge in self.graph.edges.values():
+    #                 if edge.invalid_at is not None:
+    #                     continue
+    #                 if edge.from_node_id != node_id and edge.to_node_id != node_id:
+    #                     continue
 
-                    if edge.from_node_id == node_id:
-                        edge.source_label = self._canonical_label(new_label)
-                    if edge.to_node_id == node_id:
-                        edge.target_label = self._canonical_label(new_label)
-                    edge.describe = self._build_edge_describe(edge.source_label, edge.predicate, edge.target_label)
+    #                 if edge.from_node_id == node_id:
+    #                     edge.source_label = self._canonical_label(new_label)
+    #                 if edge.to_node_id == node_id:
+    #                     edge.target_label = self._canonical_label(new_label)
+    #                 edge.describe = self._build_edge_describe(edge.source_label, edge.predicate, edge.target_label)
 
     def _update_dynamic_lifecycle(self, frame_id: int) -> None:
         """动态节点生命周期推进。
@@ -445,15 +445,33 @@ class FrameProcessor:
                 return True
         return False
 
-    def _build_edge_describe(self, source_label: str, predicate: str, target_label: str) -> str:
-        """构建结构化边描述文本。"""
+    def _build_edge_describe(self, source_label: str, source_label_frame: str, predicate: str, target_label: str,target_label_frame:str) -> str:
+        """先进行边的替换，再进行描述
+        
+        若图中的标签与帧中的标签不一致，则先将谓词中的帧标签替换为图中标签，再进行后续逻辑。
+        """
         src = self._canonical_label(source_label)
         tgt = self._canonical_label(target_label)
         pred = self._normalize_relation_text(predicate)
+        src_f = self._canonical_label(source_label_frame)
+        tgt_f = self._canonical_label(target_label_frame)
+        
+        # 若源标签发生了变化（节点合并或更新），则在谓词中进行替换
+        if src != src_f:
+            pred = pred.replace(src_f, src)
+        
+        # 若目标标签发生了变化，则在谓词中进行替换
+        if tgt != tgt_f:
+            pred = pred.replace(tgt_f, tgt)
+        
         pred_lower = pred.lower()
         if src.lower() in pred_lower and tgt.lower() in pred_lower:
             return pred
         return f"{src} {pred} {tgt}".strip()
+
+    def _build_attached_edge_describe(self, owner_label: str, attached_label: str) -> str:
+        """构造 node-attached 静态边的标准描述。"""
+        return f"{self._canonical_label(owner_label)} has attached {self._canonical_label(attached_label)}"
 
     def _record_edge_action(
         self,
@@ -521,11 +539,27 @@ class FrameProcessor:
         duplicate_edges = 0
         conflict_edges = 0
         owner_assigned = 0
-        tag_to_idx = {
-            str(obj.get("tag", "")): int(obj.get("idx", -1))
-            for obj in objects
-            if str(obj.get("tag", "")).strip()
-        }
+        attached_edge_node_ids: Set[int] = set()
+        for existing_edge in self.graph.edges.values():
+            if existing_edge.invalid_at is not None:
+                continue
+            if not existing_edge.is_attached:
+                continue
+            attached_edge_node_ids.add(existing_edge.from_node_id)
+            attached_edge_node_ids.add(existing_edge.to_node_id)
+        objects_by_idx: Dict[int, dict] = {}
+        for item in objects:
+            try:
+                cur_idx = int(item.get("idx", -1))
+            except Exception:
+                continue
+            if cur_idx >= 0:
+                objects_by_idx[cur_idx] = item
+        # tag_to_idx = {
+        #     str(obj.get("tag", "")): int(obj.get("idx", -1))
+        #     for obj in objects
+        #     if str(obj.get("tag", "")).strip()
+        # }
 
         for obj in objects:
             src_idx = int(obj.get("idx", -1))
@@ -534,6 +568,75 @@ class FrameProcessor:
 
             src_node_id = frame_map[src_idx]
             src_node = self.graph.nodes[src_node_id]
+
+
+                        # layer_mapping 明确表达 owner-attached 关系：只去重，不冲突，不修改。
+            for lay_map in obj.get("layer_mapping", []) or []:
+                attached_idx_raw = lay_map.get("idx", -1)
+                if isinstance(attached_idx_raw, int):
+                    attached_idx = attached_idx_raw
+                elif isinstance(attached_idx_raw, str) and attached_idx_raw.strip().isdigit():
+                    attached_idx = int(attached_idx_raw.strip())
+                else:
+                    continue
+
+                if attached_idx not in frame_map:
+                    continue
+
+                attached_node_id = frame_map[attached_idx]
+                attached_node = self.graph.nodes[attached_node_id]
+
+                owner_label = src_node.latest_label()
+                attached_label = attached_node.latest_label()
+                attached_describe = self._build_attached_edge_describe(owner_label, attached_label)
+
+                if self._is_duplicate_edge(src_node_id, attached_node_id, attached_describe):
+                    duplicate_edges += 1
+                    self._record_edge_action(
+                        frame_id,
+                        "duplicate",
+                        src_node_id,
+                        attached_node_id,
+                        attached_describe,
+                        reason="layer_mapping_duplicate",
+                    )
+                else:
+                    edge = RelationEdge(
+                        id=self.ids.edge_id(),
+                        from_node_id=src_node_id,
+                        to_node_id=attached_node_id,
+                        describe=attached_describe,
+                        predicate="node_attached",
+                        source_label=self._canonical_label(owner_label),
+                        target_label=self._canonical_label(attached_label),
+                        edge_type=EdgeType.ATTACHED,
+                        valid_at=frame_id,
+                        is_attached=True,
+                    )
+                    self.graph.edges[edge.id] = edge
+                    new_edges += 1
+                    self._record_edge_action(
+                        frame_id,
+                        "new",
+                        src_node_id,
+                        attached_node_id,
+                        attached_describe,
+                        edge_id=edge.id,
+                        reason="layer_mapping_insert",
+                    )
+
+                attached_edge_node_ids.add(src_node_id)
+                attached_edge_node_ids.add(attached_node_id)
+
+                # owner 唯一来源：layer_mapping。已有 owner 时不覆盖。
+                owner_assigned += self._resolve_attached_owner(
+                    attached_node=attached_node,
+                    relation_predicate="node_attached",
+                    target_node=src_node,
+                    frame_id=frame_id,
+                )
+
+
 
             for rel in obj.get("relations", []) or []:
                 tgt_idx = None
@@ -544,21 +647,30 @@ class FrameProcessor:
                     tgt_idx = int(rel_idx.strip())
 
                 if tgt_idx is None:
-                    object_tag = str(rel.get("object_tag", ""))
-                    tgt_idx = tag_to_idx.get(object_tag)
+                    raise ValueError(f"Invalid target index: tgt_idx is None")
                 if tgt_idx is None or tgt_idx not in frame_map:
                     continue
 
                 tgt_node_id = frame_map[tgt_idx]
                 tgt_node = self.graph.nodes[tgt_node_id]
+
+                # 若两个端点都已出现在 attached 边中，则跳过普通 relation 处理。
+                if src_node_id in attached_edge_node_ids and tgt_node_id in attached_edge_node_ids:
+                    continue
+
                 predicate = str(rel.get("predicate", "")).strip()
                 if not predicate:
                     continue
 
                 source_label = src_node.latest_label()
                 target_label = tgt_node.latest_label()
-                describe = self._build_edge_describe(source_label, predicate, target_label)
-                edge_type = self._edge_type(src_node.entity_type, tgt_node.entity_type)
+
+                # 将当前帧的谓词中的两个label替换成图中对应的label（针对匹配换词的情况）
+                source_label_frame = obj.get("label","")
+                target_label_frame = objects_by_idx.get(tgt_idx, {}).get("label", "")
+
+                describe = self._build_edge_describe(source_label,source_label_frame, predicate, target_label,target_label_frame)
+                # edge_type = self._edge_type(src_node.entity_type, tgt_node.entity_type)
 
                 active_edges = self._active_edges_same_endpoints(src_node_id, tgt_node_id)
                 llm_action = None
@@ -620,8 +732,9 @@ class FrameProcessor:
                     predicate=predicate,
                     source_label=self._canonical_label(source_label),
                     target_label=self._canonical_label(target_label),
-                    edge_type=edge_type,
+                    edge_type=self._edge_type(src_node.entity_type, tgt_node.entity_type),
                     valid_at=frame_id,
+                    is_attached=False,
                 )
                 self.graph.edges[edge.id] = edge
                 new_edges += 1
@@ -635,13 +748,14 @@ class FrameProcessor:
                     reason="insert_new_relation",
                 )
 
-                if src_node.entity_type == EntityType.ATTACHED:
-                    owner_assigned += self._resolve_attached_owner(
-                        attached_node=src_node,
-                        relation_predicate=predicate,
-                        target_node=tgt_node,
-                        frame_id=frame_id,
-                    )
+                # if src_node.entity_type == EntityType.ATTACHED:
+                #     owner_assigned += self._resolve_attached_owner(
+                #         attached_node=src_node,
+                #         relation_predicate=predicate,
+                #         target_node=tgt_node,
+                #         frame_id=frame_id,
+                #     )
+
 
         return {
             "new_edges": new_edges,
@@ -657,95 +771,57 @@ class FrameProcessor:
         target_node: EntityNode,
         frame_id: int,
     ) -> int:
-        """attached owner 解析与切换逻辑。
+        """attached owner 唯一绑定逻辑。
 
-策略：
-1. 谓词不具 owner 倾向则跳过。
-2. 首次证据直接 assign。
-3. 与现 owner 冲突时记 candidate，重复证据后 switch。
+规则：
+1. owner 只从 layer_mapping(node_attached) 确定。
+2. 首次绑定后不再修改。
+3. 不使用 owner candidate。
 """
         existing_owner_id = attached_node.owner[0] if attached_node.owner is not None else None
 
-        # Rule gate for free-text relation predicates.
-        if relation_predicate and not self._predicate_indicates_owner(relation_predicate):
+        if relation_predicate != "node_attached":
             self._record_owner_decision(
                 frame_id,
                 attached_node.id,
                 "skip",
                 None,
                 None,
-                "predicate_not_owner_like",
-            )
-            return 0
-
-        chosen_owner: EntityNode | None = target_node
-        if self.llm_decider is not None:
-            candidates = [target_node]
-            decision = self.llm_decider.decide_attached_owner(attached_node, relation_predicate, candidates)
-            if decision is not None and decision.owner_node_id is not None:
-                if decision.owner_node_id == target_node.id:
-                    chosen_owner = target_node
-
-        if chosen_owner is None:
-            self._record_owner_decision(
-                frame_id,
-                attached_node.id,
-                "skip",
-                None,
-                None,
-                "no_owner_candidate_selected",
+                "owner_only_from_layer_mapping",
             )
             return 0
 
         if existing_owner_id is None:
-            attached_node.owner = (chosen_owner.id, chosen_owner.latest_label())
+            attached_node.owner = (target_node.id, target_node.latest_label())
             self._record_owner_decision(
                 frame_id,
                 attached_node.id,
                 "assign",
-                chosen_owner.id,
-                chosen_owner.latest_label(),
-                "first_owner_assignment",
+                target_node.id,
+                target_node.latest_label(),
+                "assigned_by_layer_mapping",
             )
             return 1
 
-        if existing_owner_id == chosen_owner.id:
+        if existing_owner_id == target_node.id:
             self._record_owner_decision(
                 frame_id,
                 attached_node.id,
                 "keep",
-                chosen_owner.id,
-                chosen_owner.latest_label(),
+                target_node.id,
+                target_node.latest_label(),
                 "owner_unchanged",
             )
             return 0
 
-        attached_node.owner_candidates.append((chosen_owner.id, chosen_owner.latest_label(), frame_id))
         self._record_owner_decision(
             frame_id,
             attached_node.id,
-            "candidate",
-            chosen_owner.id,
-            chosen_owner.latest_label(),
-            "owner_conflict_collect_evidence",
+            "skip",
+            target_node.id,
+            target_node.latest_label(),
+            "owner_locked_no_override",
         )
-        # Confirm owner switch after repeated evidence.
-        same_candidate_count = sum(1 for cid, _label, _f in attached_node.owner_candidates if cid == chosen_owner.id)
-        if same_candidate_count >= 2:
-            attached_node.owner = (chosen_owner.id, chosen_owner.latest_label())
-            attached_node.owner_candidates = [
-                (cid, lbl, f) for cid, lbl, f in attached_node.owner_candidates if cid != chosen_owner.id
-            ]
-            self._record_owner_decision(
-                frame_id,
-                attached_node.id,
-                "switch",
-                chosen_owner.id,
-                chosen_owner.latest_label(),
-                "owner_switch_confirmed_by_repeated_evidence",
-            )
-            return 1
-
         return 0
 
     def _is_duplicate_edge(self, from_id: int, to_id: int, describe: str) -> bool:

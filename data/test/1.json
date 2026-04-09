@@ -1,0 +1,442 @@
+[
+  {
+    "image_path": "/home/liuyz/hsgg/frames/frame_000000.png",
+    "objects": [
+      {
+        "idx": 2,
+        "box": [
+          286.055,
+          310.629,
+          334.201,
+          453.132
+        ],
+        "score": 0.727,
+        "label": "man",
+        "attributes": "Basketball player wearing yellow jersey and black sneakers",
+        "layer_id": 1,
+        "layer_mapping": [
+          {
+            "idx": 44,
+            "tag": "shirt2"
+          },
+          {
+            "idx": 49,
+            "tag": "shoes4"
+          }
+        ],
+        "relations": [
+          {
+            "predicate": "man1 wear shoes on floor",
+            "object_tag": "floor",
+            "idx": 24,
+            "confidence": 1.0
+          },
+          {
+            "predicate": "banner behind man1",
+            "object_tag": "banner",
+            "idx": 14,
+            "confidence": 1.0
+          }
+        ]
+      },
+      {
+        "idx": 4,
+        "box": [
+          0.198,
+          39.444,
+          205.297,
+          140.599
+        ],
+        "score": 0.703,
+        "label": "sign",
+        "attributes": "Sign with white letters on blue background",
+        "layer_id": 1,
+        "layer_mapping": [],
+        "relations": [
+        ]
+      },
+      {
+        "idx": 14,
+        "box": [
+          311.003,
+          160.387,
+          556.187,
+          364.63
+        ],
+        "score": 0.507,
+        "label": "banner",
+        "attributes": "Black banner with white and red writing and graphics",
+        "layer_id": 1,
+        "layer_mapping": [],
+        "relations": [
+          {
+            "predicate": "floor below banner",
+            "object_tag": "floor",
+            "idx": 24,
+            "confidence": 1.0
+          },
+          
+          {
+            "predicate": "banner behind man1",
+            "object_tag": "man1",
+            "idx": 2,
+            "confidence": 1.0
+          }
+          
+        ]
+      },
+      {
+        "idx": 24,
+        "box": [
+          1.374,
+          347.398,
+          913.817,
+          542.798
+        ],
+        "score": 0.376,
+        "label": "floor",
+        "attributes": "Wooden basketball court with orange and black markings",
+        "layer_id": 1,
+        "layer_mapping": [],
+        "relations": [
+
+          {
+            "predicate": "floor below banner",
+            "object_tag": "banner",
+            "idx": 14,
+            "confidence": 1.0
+          },
+     
+
+          {
+            "predicate": "man1 wear shoes on floor",
+            "object_tag": "man1",
+            "idx": 2,
+            "confidence": 1.0
+          }
+
+        ]
+      },
+      {
+        "idx": 44,
+        "box": [
+          288.192,
+          330.815,
+          328.731,
+          393.545
+        ],
+        "score": 0.489,
+        "label": "shirt",
+        "attributes": "Yellow basketball jersey with number 62",
+        "layer_id": 2,
+        "layer_mapping": [],
+        "relations": []
+      },
+      {
+        "idx": 49,
+        "box": [
+          315.922,
+          433.55,
+          332.391,
+          455.1
+        ],
+        "score": 0.418,
+        "label": "shoes",
+        "attributes": "Black sneakers with white soles",
+        "layer_id": 2,
+        "layer_mapping": [],
+        "relations": []
+      },
+      {
+        "idx": 59,
+        "box": [
+          0.212,
+          39.865,
+          205.107,
+          139.416
+        ],
+        "score": 0.344,
+        "label": "fabric",
+        "attributes": "",
+        "layer_id": 1,
+        "layer_mapping": [],
+        "relations": []
+      },
+      {
+        "idx": 70,
+        "box": [
+          0.079,
+          39.753,
+          205.206,
+          139.178
+        ],
+        "score": 0.686,
+        "label": "poster",
+        "attributes": "",
+        "layer_id": 1,
+        "layer_mapping": [],
+        "relations": []
+      }
+    ]
+  },
+  {
+    "image_path": "/home/liuyz/hsgg/frames/frame_000005.png",
+    "objects": [
+      {
+        "idx": 0,
+        "box": [
+          283.108,
+          311.52,
+          344.489,
+          454.145
+        ],
+        "score": 0.875,
+        "label": "man",
+        "attributes": "Basketball player wearing yellow jersey and shorts",
+        "layer_id": 1,
+        "layer_mapping": [
+          {
+            "idx": 14,
+            "tag": "pants1"
+          },
+          {
+            "idx": 12,
+            "tag": "t - shirt1"
+          }
+        ],
+        "relations": [
+          
+          {
+            "predicate": "banner behind man1",
+            "object_tag": "banner",
+            "idx": 9,
+            "confidence": 1.0
+          },
+          {
+            "predicate": "man1 walk on floor",
+            "object_tag": "floor",
+            "idx": 11,
+            "confidence": 1.0
+          }
+        ]
+      },
+      {
+        "idx": 1,
+        "box": [
+          240.745,
+          252.661,
+          279.769,
+          312.318
+        ],
+        "score": 0.796,
+        "label": "window",
+        "attributes": "Metal barred window",
+        "layer_id": 1,
+        "layer_mapping": [],
+        "relations": [
+
+          {
+            "predicate": "window1 beside poster2",
+            "object_tag": "poster2",
+            "idx": 10,
+            "confidence": 0.5
+          }
+        ]
+      },
+      {
+        "idx": 9,
+        "box": [
+          310.866,
+          160.252,
+          556.561,
+          364.672
+        ],
+        "score": 0.385,
+        "label": "banner",
+        "attributes": "Black banner with white and red writing",
+        "layer_id": 1,
+        "layer_mapping": [],
+        "relations": [
+          {
+            "predicate": "floor below banner",
+            "object_tag": "floor",
+            "idx": 11,
+            "confidence": 1.0
+          },
+          {
+            "predicate": "banner behind man1",
+            "object_tag": "man1",
+            "idx": 0,
+            "confidence": 1.0
+          }
+         
+        ]
+      },
+      {
+        "idx": 10,
+        "box": [
+          0.332,
+          39.316,
+          205.288,
+          139.507
+        ],
+        "score": 0.383,
+        "label": "poster",
+        "attributes": "Poster of astronaut drinking water",
+        "layer_id": 1,
+        "layer_mapping": [],
+        "relations": [
+          {
+            "predicate": "window1 beside poster2",
+            "object_tag": "window1",
+            "idx": 1,
+            "confidence": 0.5
+          }
+        ]
+      },
+      {
+        "idx": 11,
+        "box": [
+          1.172,
+          347.246,
+          956.153,
+          542.19
+        ],
+        "score": 0.319,
+        "label": "floor",
+        "attributes": "Wooden basketball court with orange and black markings",
+        "layer_id": 1,
+        "layer_mapping": [],
+        "relations": [
+          {
+            "predicate": "man1 walk on floor",
+            "object_tag": "man1",
+            "idx": 0,
+            "confidence": 1.0
+          },
+   
+
+
+          {
+            "predicate": "floor below banner",
+            "object_tag": "banner",
+            "idx": 9,
+            "confidence": 1.0
+          }
+        ]
+      },
+      {
+        "idx": 12,
+        "box": [
+          295.919,
+          329.948,
+          333.452,
+          392.32
+        ],
+        "score": 0.559,
+        "label": "t - shirt",
+        "attributes": "Yellow basketball jersey with number 62",
+        "layer_id": 2,
+        "layer_mapping": [],
+        "relations": []
+      },
+      {
+        "idx": 14,
+        "box": [
+          300.201,
+          389.154,
+          332.125,
+          414.045
+        ],
+        "score": 0.469,
+        "label": "pants",
+        "attributes": "Yellow basketball shorts",
+        "layer_id": 2,
+        "layer_mapping": [
+          {
+            "idx": 23,
+            "tag": "socks1"
+          },
+          {
+            "idx": 24,
+            "tag": "socks2"
+          }
+        ],
+        "relations": [
+          {
+            "predicate": "socks1 worn by pants1",
+            "object_tag": "socks1",
+            "idx": 23,
+            "confidence": 1.0
+          },
+          {
+            "predicate": "pants1 paired with socks2",
+            "object_tag": "socks2",
+            "idx": 24,
+            "confidence": 1.0
+          }
+        ]
+      },
+      {
+        "idx": 18,
+        "box": [
+          311.362,
+          159.39,
+          556.065,
+          365.307
+        ],
+        "score": 0.346,
+        "label": "backboard",
+        "attributes": "Black backboard with white writing",
+        "layer_id": 2,
+        "layer_mapping": [],
+        "relations": [
+        ]
+      },
+      {
+        "idx": 23,
+        "box": [
+          316.884,
+          412.603,
+          326.924,
+          435.382
+        ],
+        "score": 0.596,
+        "label": "socks",
+        "attributes": "Black athletic socks",
+        "layer_id": 3,
+        "layer_mapping": [],
+        "relations": [
+          {
+            "predicate": "socks1 worn by pants1",
+            "object_tag": "pants1",
+            "idx": 14,
+            "confidence": 1.0
+          }
+        ]
+      },
+      {
+        "idx": 24,
+        "box": [
+          304.663,
+          407.178,
+          313.137,
+          428.674
+        ],
+        "score": 0.59,
+        "label": "socks",
+        "attributes": "Black athletic socks",
+        "layer_id": 3,
+        "layer_mapping": [],
+        "relations": [
+          {
+            "predicate": "pants1 paired with socks2",
+            "object_tag": "pants1",
+            "idx": 14,
+            "confidence": 1.0
+          }
+        ]
+      }
+    ]
+  }
+]
