@@ -65,40 +65,17 @@ def iou(box_a: Box, box_b: Box) -> float:
     return inter_area / union
 
 
-def size_ratio(box_a: Box, box_b: Box) -> float:
-    """计算两个框面积比（小面积/大面积）。
-
-用于跨帧匹配时过滤尺度差异过大的候选。
-"""
-    a = area(box_a)
-    b = area(box_b)
-    if a <= 0.0 or b <= 0.0:
-        return 0.0
-    return min(a, b) / max(a, b)
+def size_ratio(box_a: Box, box_b: Box) -> tuple[float, float]:
+    """计算两个框长宽比（node/target）。
+    用于跨帧匹配时过滤尺度差异过大的候选。
+    """
+    w_ratio = box_width(box_b) / box_width(box_a) if box_width(box_a) > 0 else 0.0
+    h_ratio = box_height(box_b) / box_height(box_a) if box_height(box_a) > 0 else 0.0
+    
+    return w_ratio, h_ratio
 
 
-def is_small_object(box: Box, frame_diag: float) -> bool:
-    """判断目标是否为小目标。
-
-规则：目标对角线 < 帧对角线 10%。
-"""
-    w = box_width(box)
-    h = box_height(box)
-    diag = (w * w + h * h) ** 0.5
-    if frame_diag <= 0.0:
-        return False
-    return diag < 0.10 * frame_diag
 
 
-def frame_diagonal(objects: List[dict]) -> float:
-    """估计当前帧的几何尺度（对角线）。
 
-简化实现：取所有框的最大 x2/y2 作为画幅边界。
-"""
-    max_x2 = 0.0
-    max_y2 = 0.0
-    for obj in objects:
-        box = obj.get("box", [0, 0, 0, 0])
-        max_x2 = max(max_x2, float(box[2]))
-        max_y2 = max(max_y2, float(box[3]))
-    return (max_x2 * max_x2 + max_y2 * max_y2) ** 0.5
+

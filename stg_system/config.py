@@ -24,13 +24,14 @@ class ThresholdConfig:
 4. size_ratio_min/max: 跨帧尺寸比过滤范围。
 5. cur_context_limit: 提供给 LLM 的本帧上下文候选数上限。
 """
-
-    cmp_iou_threshold: float = 0.85
-    pre_iou_threshold: float = 0.30
-    center_dist_threshold_small: float = 40.0
-    center_dist_threshold_large: float = 120.0
-    size_ratio_min: float = 0.35
-    size_ratio_max: float = 2.8
+    width :float = 959.0
+    height :float = 543.0
+    cmp_iou_threshold: float = 0.9
+    pre_iou_threshold: float = 0.65
+    dist_scale_factor = 1.0  # 值为1的时候是外接圆
+    area_ratio_small = 0.015 # 判定为小物体的面积占比阈值
+    size_ratio_min: float = 0.4
+    size_ratio_max: float = 1.7
     cur_context_limit: int = 8
 
 
