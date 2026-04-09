@@ -96,4 +96,5 @@ class EngineConfig:
     neo4j_user: str = "neo4j"
     neo4j_password: str = "password"
     neo4j_database: str = "stg.llm"
+    sample_id: str = "default_sample"
     group_id: str = "default_video"
