@@ -101,10 +101,10 @@ class FrameProcessor:
     def _infer_entity_type(self, obj: dict) -> EntityType:
         """实体类型初判规则。
 
-1. layer_id > 1 视为 attached。
-2. 命中 moving_labels 视为 dynamic。
-3. 其余视为 static。
-"""
+        1. layer_id > 1 视为 attached。
+        2. 命中 moving_labels 视为 dynamic。
+        3. 其余视为 static。
+        """
         layer_id = int(obj.get("layer_id", 1))
         label = str(obj.get("label", "")).lower()
         if layer_id > 1:
@@ -112,6 +112,14 @@ class FrameProcessor:
         if label in self.config.moving_labels:
             return EntityType.DYNAMIC
         return EntityType.STATIC
+    
+    def _attached_entity_type(self, obj:dict)->EntityType| None:
+        """
+附属实体类型判定规则：只看layer_i是否大于1，若大于1则视为attached
+        """
+        layer_id = int(obj.get("layer_id",1))
+        if layer_id > 1:
+            return EntityType.ATTACHED
 
     def _pick_primary_idx(self, candidates: CandidateResult, objects_by_idx: Dict[int, dict]) -> int:
         """规则回退：按 score 选主对象。"""
@@ -127,8 +135,8 @@ class FrameProcessor:
     def _match_existing_node(self, primary_obj: dict, candidates: CandidateResult) -> int | None:
         """跨帧匹配。
 
-优先 LLM，失败后回退几何+标签启发式。
-"""
+        优先 LLM，失败后回退几何+标签启发式。
+        """
         if self.llm_decider is not None:
             decision = self.llm_decider.decide_node_match(primary_obj, candidates, self.graph.nodes)
             if decision is not None and decision.matched_node_id in self.graph.nodes:
@@ -163,29 +171,33 @@ class FrameProcessor:
     ) -> Tuple[int, List[int]]:
         """节点解析核心逻辑（对应 design 中 node_resolve）。
 
-关键点：
-1. 先定主对象（LLM/规则）。
-2. 再做 entity_type 判定（LLM 可覆盖初判）。
-3. 再做历史匹配（LLM/规则）。
-4. 根据匹配结果选择新建或更新节点。
-5. 返回 node_id 与本次被合并处理的 idx 列表。
-"""
+        关键点：
+        1. 先定主对象（LLM/规则）。
+        2. 再做 entity_type 判定（LLM 可覆盖初判）。
+        3. 再做历史匹配（LLM/规则）。
+        4. 根据匹配结果选择新建或更新节点。
+        5. 返回 node_id 与本次被合并处理的 idx 列表。
+        """
         objects_by_idx = {int(obj["idx"]): obj for obj in objects}
+
+        # 规则回退测试
         fallback_primary_idx = self._pick_primary_idx(candidates, objects_by_idx)
         primary_idx = fallback_primary_idx
         dedupe_decision = None
-
         fallback_type = self._infer_entity_type(objects_by_idx[fallback_primary_idx])
+
+        # llm处理
         if self.llm_decider is not None:
             dedupe_decision = self.llm_decider.decide_frame_dedupe(candidates, objects_by_idx, fallback_type)
             if dedupe_decision is not None and dedupe_decision.primary_idx in objects_by_idx:
                 primary_idx = int(dedupe_decision.primary_idx)
-
         primary_obj = objects_by_idx[primary_idx]
-        entity_type = self._infer_entity_type(primary_obj)
+        entity_type = self._infer_entity_type(primary_obj) # 这是防止llm无返回
         if dedupe_decision is not None and dedupe_decision.entity_type is not None:
             entity_type = dedupe_decision.entity_type
+        entity_type = self._attached_entity_type(primary_obj) or entity_type # 附属实体类型判定覆盖
 
+        # 跨帧匹配
         matched_node_id = self._match_existing_node(primary_obj, candidates)
 
         merged_idxs = [item.idx for item in candidates.cur_cmp]
@@ -239,18 +251,19 @@ class FrameProcessor:
     def _update_node(self, node: EntityNode, obj: dict, frame_id: int, inferred_type: EntityType) -> None:
         """更新已存在节点。
 
-更新内容：
-1. type/label/attribute 反思流程（候选追加、确认、撤销）。
-2. 动态节点轨迹与 life_value。
-3. 静态/附属节点位置样本。
-"""
+        更新内容：
+        1. type/label/attribute 反思流程（候选追加、确认、撤销）。
+        2. 动态节点轨迹与 life_value。
+        3. 静态/附属节点位置样本。
+        """
         label = str(obj.get("label", "unknown"))
         attr = str(obj.get("attributes", ""))
         box = list(obj.get("box", [0, 0, 0, 0]))
 
-        self._handle_type_reflection(node, inferred_type, frame_id)
-        self._handle_label_reflection(node, label, frame_id)
-        self._handle_attribute_reflection(node, attr, frame_id)
+        # 反思流程有待细化
+        # self._handle_type_reflection(node, inferred_type, frame_id)
+        # self._handle_label_reflection(node, label, frame_id)
+        # self._handle_attribute_reflection(node, attr, frame_id)
 
         node.last_matched = frame_id
 
@@ -489,13 +502,13 @@ class FrameProcessor:
     def _edge_process(self, objects: List[dict], frame_id: int, frame_map: Dict[int, int]) -> Dict[str, int]:
         """边处理核心（对应 design 中 edge_process）。
 
-流程：
-1. 解析关系端点（优先 relation.idx，回退 object_tag）。
-2. 生成结构化描述 describe。
-3. 执行 duplicate/conflict/new 判定（LLM 或规则）。
-4. 写入边并记录动作事件。
-5. 对 attached 节点执行 owner 决策流程。
-"""
+        流程：
+        1. 解析关系端点（优先 relation.idx，回退 object_tag）。
+        2. 生成结构化描述 describe。
+        3. 执行 duplicate/conflict/new 判定（LLM 或规则）。
+        4. 写入边并记录动作事件。
+        5. 对 attached 节点执行 owner 决策流程。
+        """
         if not frame_map:
             return {
                 "new_edges": 0,

@@ -77,9 +77,9 @@ class LLMDecider:
 
         cmp_payload = [
             {
-                "idx": item.idx,
-                "iou": item.iou,
-                "distance": item.distance,
+                #"idx": item.idx,
+                # "iou": item.iou,
+                #"distance": item.distance,
                 "score": float(objects_by_idx.get(item.idx, {}).get("score", 0.0)),
                 "label": str(objects_by_idx.get(item.idx, {}).get("label", "")),
                 "attributes": str(objects_by_idx.get(item.idx, {}).get("attributes", "")),
@@ -100,7 +100,7 @@ class LLMDecider:
 
         prompt = (
             "You are resolving duplicated detections in one frame. "
-            "Return strict JSON with keys: primary_idx (int), merged_idxs (int[]), entity_type (dynamic|static|attached).\n"
+            "Return strict JSON with keys: primary_idx (int), merged_idxs (int[]), entity_type (dynamic|static).\n"
             f"cmp_objects={json.dumps(cmp_payload, ensure_ascii=False)}\n"
             f"cur_context={json.dumps(context_payload, ensure_ascii=False)}\n"
             f"fallback_entity_type={fallback_type.value}"
