@@ -24,6 +24,7 @@ class Neo4jConfig:
     user: str
     password: str
     database : str
+    sample_id: str
 
 
 class Neo4jStorage:
@@ -64,10 +65,12 @@ class Neo4jStorage:
         if self._driver is None:
             return
         queries = [
-            "CREATE CONSTRAINT entity_node_id IF NOT EXISTS FOR (n:EntityNode) REQUIRE n.node_id IS UNIQUE",
-            "CREATE CONSTRAINT relation_edge_id IF NOT EXISTS FOR ()-[e:SEMANTIC_REL]-() REQUIRE e.edge_id IS UNIQUE",
+            "CREATE CONSTRAINT entity_node_sample_node IF NOT EXISTS FOR (n:EntityNode) REQUIRE (n.sample_id, n.node_id) IS UNIQUE",
+            "CREATE CONSTRAINT relation_edge_sample_edge IF NOT EXISTS FOR ()-[e:SEMANTIC_REL]-() REQUIRE (e.sample_id, e.edge_id) IS UNIQUE",
             "CREATE INDEX entity_state IF NOT EXISTS FOR (n:EntityNode) ON (n.state)",
+            "CREATE INDEX entity_sample_id IF NOT EXISTS FOR (n:EntityNode) ON (n.sample_id)",
             "CREATE INDEX edge_valid_at IF NOT EXISTS FOR ()-[e:SEMANTIC_REL]-() ON (e.valid_at)",
+            "CREATE INDEX edge_sample_id IF NOT EXISTS FOR ()-[e:SEMANTIC_REL]-() ON (e.sample_id)",
         ]
 
         with self._get_session() as session:  # 修改这里
@@ -81,7 +84,7 @@ class Neo4jStorage:
             return
 
         query = (
-            "MERGE (n:EntityNode {node_id: $node_id}) "
+            "MERGE (n:EntityNode {sample_id: $sample_id, node_id: $node_id}) "
             "SET n.entity_type=$entity_type, "
             "n.latest_label=$latest_label, "
             "n.last_matched=$last_matched, "
@@ -93,6 +96,7 @@ class Neo4jStorage:
             for node in nodes:
                 session.run(
                     query,
+                    sample_id=self._config.sample_id,
                     node_id=node.id,
                     entity_type=node.entity_type.value,
                     latest_label=node.latest_label(),
@@ -107,9 +111,9 @@ class Neo4jStorage:
             return
 
         query = (
-            "MATCH (a:EntityNode {node_id: $from_id}) "
-            "MATCH (b:EntityNode {node_id: $to_id}) "
-            "MERGE (a)-[e:SEMANTIC_REL {edge_id: $edge_id}]->(b) "
+            "MATCH (a:EntityNode {sample_id: $sample_id, node_id: $from_id}) "
+            "MATCH (b:EntityNode {sample_id: $sample_id, node_id: $to_id}) "
+            "MERGE (a)-[e:SEMANTIC_REL {sample_id: $sample_id, edge_id: $edge_id}]->(b) "
             "SET e.describe=$describe, "
             "e.predicate=$predicate, "
             "e.source_label=$source_label, "
@@ -124,6 +128,7 @@ class Neo4jStorage:
             for edge in edges:
                 session.run(
                     query,
+                    sample_id=self._config.sample_id,
                     from_id=edge.from_node_id,
                     to_id=edge.to_node_id,
                     edge_id=edge.id,

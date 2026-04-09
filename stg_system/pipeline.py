@@ -53,6 +53,7 @@ class SpatialTemporalPipeline:
                     user=config.neo4j_user,
                     password=config.neo4j_password,
                     database=config.neo4j_database,
+                    sample_id=config.sample_id,
                 )
             )
 
@@ -99,6 +100,7 @@ class SpatialTemporalPipeline:
         out = Path(output_path)
         out.parent.mkdir(parents=True, exist_ok=True)
         payload = {
+            "sample_id": self.config.sample_id,
             "nodes": [self._node_to_dict(n) for n in self.graph.nodes.values()],
             "edges": [self._edge_to_dict(e) for e in self.graph.edges.values()],
             "frame_idx_map": self.graph.frame_idx_map,

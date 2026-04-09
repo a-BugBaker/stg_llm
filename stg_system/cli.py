@@ -27,6 +27,11 @@ def parse_args() -> argparse.Namespace:
         help="Directory to store snapshot and acceptance report",
     )
     parser.add_argument(
+        "--sample-id",
+        default="default_sample",
+        help="Sample identifier for storage/output isolation",
+    )
+    parser.add_argument(
         "--snapshot-output",
         default=None,
         help="Output path for semantic graph snapshot",
@@ -61,6 +66,7 @@ def main() -> None:
         neo4j_user=args.neo4j_user,
         neo4j_password=args.neo4j_password,
         neo4j_database = args.neo4j_database,
+        sample_id=args.sample_id,
         llm=LLMConfig(
             enabled=args.enable_llm,
             base_url=args.llm_base_url,
@@ -74,7 +80,7 @@ def main() -> None:
     pipeline = SpatialTemporalPipeline(config=cfg)
     summary = pipeline.run(input_json_path=args.input, max_frames=args.max_frames)
 
-    output_dir = Path(args.output_dir)
+    output_dir = Path(args.output_dir) / args.sample_id
     output_dir.mkdir(parents=True, exist_ok=True)
 
     out_path = Path(args.snapshot_output) if args.snapshot_output else output_dir / "semantic_graph_snapshot.json"
@@ -93,6 +99,7 @@ def main() -> None:
     print(f"Duplicate edges: {summary.total_duplicate_edges}")
     print(f"Conflict edges: {summary.total_conflict_edges}")
     print(f"Owner assigned: {summary.total_owner_assigned}")
+    print(f"Sample ID: {args.sample_id}")
     print(f"Snapshot: {out_path}")
     print(f"Acceptance report: {report_path}")
 
