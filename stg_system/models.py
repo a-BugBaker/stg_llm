@@ -140,6 +140,12 @@ class GraphState:
     edge_action_events: List[Dict[str, Any]] = field(default_factory=list)
     # trace attached owner decisions for explainability
     owner_decision_events: List[Dict[str, Any]] = field(default_factory=list)
+    # trace llm dedupe decisions
+    llm_dedupe_events: List[Dict[str, Any]] = field(default_factory=list)
+    # trace llm match decisions
+    llm_match_events: List[Dict[str, Any]] = field(default_factory=list)
+    # trace llm edge action decisions
+    llm_edge_decision_events: List[Dict[str, Any]] = field(default_factory=list)
 
 
 @dataclass(slots=True)

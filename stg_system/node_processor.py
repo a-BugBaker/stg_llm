@@ -132,13 +132,25 @@ class FrameProcessor:
                 best_score = score
         return best_idx
 
-    def _match_existing_node(self, primary_obj: dict, candidates: CandidateResult) -> int | None:
+    def _match_existing_node(
+        self,
+        primary_obj: dict,
+        candidates: CandidateResult,
+        frame_id: int,
+        current_idx: int,
+    ) -> int | None:
         """跨帧匹配。
 
         优先 LLM，失败后回退几何+标签启发式。
         """
         if self.llm_decider is not None:
             decision = self.llm_decider.decide_node_match(primary_obj, candidates, self.graph.nodes)
+            self._record_llm_match_decision(
+                frame_id=frame_id,
+                object_idx=current_idx,
+                matched_node_id=decision.matched_node_id if decision is not None else None,
+                accepted=decision is not None and decision.matched_node_id in self.graph.nodes,
+            )
             if decision is not None and decision.matched_node_id in self.graph.nodes:
                 return decision.matched_node_id
 
@@ -189,8 +201,19 @@ class FrameProcessor:
         # llm处理
         if self.llm_decider is not None:
             dedupe_decision = self.llm_decider.decide_frame_dedupe(candidates, objects_by_idx, fallback_type)
-            if dedupe_decision is not None and dedupe_decision.primary_idx in objects_by_idx:
-                primary_idx = int(dedupe_decision.primary_idx)
+            if dedupe_decision is not None:
+                candidate_idxs = [item.idx for item in candidates.cur_cmp]
+                accepted = dedupe_decision.primary_idx in candidate_idxs
+                self._record_llm_dedupe_decision(
+                    frame_id=frame_id,
+                    target_idx=idx,
+                    candidate_idxs=candidate_idxs,
+                    primary_idx=dedupe_decision.primary_idx,
+                    merged_idxs=dedupe_decision.merged_idxs,
+                    accepted=accepted,
+                )
+                if accepted:
+                    primary_idx = int(dedupe_decision.primary_idx)
         primary_obj = objects_by_idx[primary_idx]
         entity_type = self._infer_entity_type(primary_obj) # 这是防止llm无返回
         if dedupe_decision is not None and dedupe_decision.entity_type is not None:
@@ -198,7 +221,7 @@ class FrameProcessor:
         entity_type = self._attached_entity_type(primary_obj) or entity_type # 附属实体类型判定覆盖
 
         # 跨帧匹配
-        matched_node_id = self._match_existing_node(primary_obj, candidates)
+        matched_node_id = self._match_existing_node(primary_obj, candidates, frame_id, primary_idx)
 
         merged_idxs = [item.idx for item in candidates.cur_cmp]
         if dedupe_decision is not None and dedupe_decision.merged_idxs:
@@ -517,6 +540,63 @@ class FrameProcessor:
             }
         )
 
+    def _record_llm_dedupe_decision(
+        self,
+        frame_id: int,
+        target_idx: int,
+        candidate_idxs: List[int],
+        primary_idx: int | None,
+        merged_idxs: List[int] | None,
+        accepted: bool,
+    ) -> None:
+        """记录 LLM 去重判定：候选 idx 与输出 idx。"""
+        self.graph.llm_dedupe_events.append(
+            {
+                "frame_id": frame_id,
+                "target_idx": target_idx,
+                "candidate_idxs": candidate_idxs,
+                "llm_primary_idx": primary_idx,
+                "llm_merged_idxs": merged_idxs,
+                "accepted": accepted,
+            }
+        )
+
+    def _record_llm_match_decision(
+        self,
+        frame_id: int,
+        object_idx: int,
+        matched_node_id: int | None,
+        accepted: bool,
+    ) -> None:
+        """记录 LLM 跨帧匹配：idx -> node_id。"""
+        self.graph.llm_match_events.append(
+            {
+                "frame_id": frame_id,
+                "object_idx": object_idx,
+                "matched_node_id": matched_node_id,
+                "accepted": accepted,
+            }
+        )
+
+    def _record_llm_edge_decision(
+        self,
+        frame_id: int,
+        from_node_id: int,
+        to_node_id: int,
+        describe: str,
+        action: str,
+    ) -> None:
+        """记录 LLM 边动作判定（duplicate/conflict/new）。"""
+        self.graph.llm_edge_decision_events.append(
+            {
+                "frame_id": frame_id,
+                "from_node_id": from_node_id,
+                "to_node_id": to_node_id,
+                "describe": describe,
+                "action": action,
+            }
+        )
+
     def _edge_process(self, objects: List[dict], frame_id: int, frame_map: Dict[int, int]) -> Dict[str, int]:
         """边处理核心（对应 design 中 edge_process）。
 
@@ -678,6 +758,13 @@ class FrameProcessor:
                     edge_decision = self.llm_decider.decide_edge_action(describe, active_edges)
                     if edge_decision is not None:
                         llm_action = edge_decision.action
+                        self._record_llm_edge_decision(
+                            frame_id=frame_id,
+                            from_node_id=src_node_id,
+                            to_node_id=tgt_node_id,
+                            describe=describe,
+                            action=llm_action,
+                        )
 
                 if llm_action == "duplicate":
                     duplicate_edges += 1
@@ -825,31 +912,37 @@ class FrameProcessor:
         return 0
 
     def _is_duplicate_edge(self, from_id: int, to_id: int, describe: str) -> bool:
-        """检查是否存在同端点同描述的有效边。"""
+        """检查是否存在同无向端点同描述的有效边。"""
+        a, b = sorted((from_id, to_id))
         for edge in self.graph.edges.values():
             if edge.invalid_at is not None:
                 continue
-            if edge.from_node_id == from_id and edge.to_node_id == to_id and edge.describe == describe:
+            x, y = sorted((edge.from_node_id, edge.to_node_id))
+            if x == a and y == b and edge.describe == describe:
                 return True
         return False
 
     def _invalidate_conflicting_edge(self, from_id: int, to_id: int, describe: str, frame_id: int) -> bool:
-        """将同端点但不同描述的有效边标记失效。"""
+        """将同无向端点但不同描述的有效边标记失效。"""
         changed = False
+        a, b = sorted((from_id, to_id))
         for edge in self.graph.edges.values():
             if edge.invalid_at is not None:
                 continue
-            if edge.from_node_id == from_id and edge.to_node_id == to_id and edge.describe != describe:
+            x, y = sorted((edge.from_node_id, edge.to_node_id))
+            if x == a and y == b and edge.describe != describe:
                 edge.invalid_at = frame_id
                 changed = True
         return changed
 
     def _active_edges_same_endpoints(self, from_id: int, to_id: int) -> List[RelationEdge]:
-        """获取同端点的所有有效边。"""
+        """获取同无向端点的所有有效边。"""
         result: List[RelationEdge] = []
+        a, b = sorted((from_id, to_id))
         for edge in self.graph.edges.values():
             if edge.invalid_at is not None:
                 continue
-            if edge.from_node_id == from_id and edge.to_node_id == to_id:
+            x, y = sorted((edge.from_node_id, edge.to_node_id))
+            if x == a and y == b:
                 result.append(edge)
         return result
