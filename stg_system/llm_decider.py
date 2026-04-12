@@ -77,9 +77,9 @@ class LLMDecider:
 
         cmp_payload = [
             {
-                #"idx": item.idx,
+                "idx": item.idx,
                 # "iou": item.iou,
-                #"distance": item.distance,
+                # "distance": item.distance,
                 "score": float(objects_by_idx.get(item.idx, {}).get("score", 0.0)),
                 "label": str(objects_by_idx.get(item.idx, {}).get("label", "")),
                 "attributes": str(objects_by_idx.get(item.idx, {}).get("attributes", "")),
@@ -99,8 +99,28 @@ class LLMDecider:
         ]
 
         prompt = (
-            "You are resolving duplicated detections in one frame. "
-            "Return strict JSON with keys: primary_idx (int), merged_idxs (int[]), entity_type (dynamic|static).\n"
+            "Task background:\n"
+            "- This is a spatial-temporal graph construction pipeline.\n"
+            "- Current task is ONLY intra-frame deduplication for one object cluster in ONE frame.\n"
+            "- You must not use any id outside the provided cmp_objects list.\n\n"
+            "Input fields meaning:\n"
+            "1) cmp_objects: objects that are considered duplicates of the same real entity in current frame.\n"
+            "   - idx: object index in current frame (the only valid id space for primary_idx/merged_idxs).\n"
+            "   - iou, distance, score, label, attributes: evidence for selecting primary object.\n"
+            "2) cur_context: nearby objects in current frame for disambiguation, NOT merge targets unless they are also in cmp_objects.\n"
+            "3) fallback_entity_type: rule-based fallback type, one of dynamic|static|attached.\n\n"
+            "Your task:\n"
+            "- Select exactly one primary_idx from cmp_objects.idx.\n"
+            "- Select merged_idxs as subset of cmp_objects.idx (can include all duplicates).\n"
+            "- Decide entity_type from dynamic|static|attached.\n"
+            "- If uncertain, keep conservative and follow fallback_entity_type.\n\n"
+            "Hard constraints (MUST):\n"
+            "- primary_idx MUST be one of cmp_objects.idx.\n"
+            "- merged_idxs MUST be array of unique integers, and every item MUST be in cmp_objects.idx.\n"
+            "- merged_idxs MUST include primary_idx.\n"
+            "- Do not output explanations or extra keys.\n\n"
+            "Output format (strict JSON only):\n"
+            "{\"primary_idx\": int, \"merged_idxs\": int[], \"entity_type\": \"dynamic\"|\"static\"}\n\n"
             f"cmp_objects={json.dumps(cmp_payload, ensure_ascii=False)}\n"
             f"cur_context={json.dumps(context_payload, ensure_ascii=False)}\n"
             f"fallback_entity_type={fallback_type.value}"
@@ -156,8 +176,22 @@ class LLMDecider:
             )
 
         prompt = (
-            "You are matching a current object with existing entity nodes. "
-            "Return strict JSON: {\"matched_node_id\": int|null}.\n"
+            "Task background:\n"
+            "- This is cross-frame entity linking in a spatial-temporal graph.\n"
+            "- Current task is ONLY selecting a match from the provided candidate_nodes.\n\n"
+            "Input fields meaning:\n"
+            "1) current_object: detection in current frame.\n"
+            "2) candidate_nodes: possible historical nodes from previous frames.\n"
+            "   - node_id is the only valid id space for matched_node_id.\n"
+            "   - iou/distance/node_label/node_type are matching evidence.\n\n"
+            "Your task:\n"
+            "- Choose one matched_node_id from candidate_nodes.node_id if it is the same real-world entity.\n"
+            "- Return null when no reliable match exists.\n\n"
+            "Hard constraints (MUST):\n"
+            "- matched_node_id must be null or one of candidate_nodes.node_id.\n"
+            "- Do not output explanations or extra keys.\n\n"
+            "Output format (strict JSON only):\n"
+            "{\"matched_node_id\": int|null}\n\n"
             f"current_object={json.dumps(primary_obj, ensure_ascii=False)}\n"
             f"candidate_nodes={json.dumps(pre_payload, ensure_ascii=False)}"
         )
@@ -196,8 +230,20 @@ class LLMDecider:
         ]
 
         prompt = (
-            "You are checking whether a new relation duplicates or conflicts with existing relations. "
-            "Return strict JSON with action one of duplicate|conflict|new.\n"
+            "Task background:\n"
+            "- Relation edges are treated as semantic undirected edges at decision level.\n"
+            "- Current task compares one new relation text against active relations for the same endpoint pair.\n\n"
+            "Input fields meaning:\n"
+            "1) new_relation.describe: new relation description to insert.\n"
+            "2) existing_relations: active relation descriptions for the same endpoint pair.\n"
+            "   - If meaning is the same as any existing relation, action should be duplicate.\n"
+            "   - If meaning contradicts an existing relation, action should be conflict.\n"
+            "   - Otherwise action should be new.\n\n"
+            "Hard constraints (MUST):\n"
+            "- action must be exactly one of: duplicate, conflict, new.\n"
+            "- Do not output explanations or extra keys.\n\n"
+            "Output format (strict JSON only):\n"
+            "{\"action\": \"duplicate\"|\"conflict\"|\"new\"}\n\n"
             f"new_relation={json.dumps({'describe': new_describe}, ensure_ascii=False)}\n"
             f"existing_relations={json.dumps(old_payload, ensure_ascii=False)}"
         )
@@ -231,8 +277,21 @@ class LLMDecider:
         ]
 
         prompt = (
-            "You are selecting owner for an attached object. "
-            "Return strict JSON: {\"owner_node_id\": int|null}.\n"
+            "Task background:\n"
+            "- Attached object owner selection in a spatial-temporal graph.\n"
+            "- Current task can only choose from provided owner_candidates.\n\n"
+            "Input fields meaning:\n"
+            "1) attached_node: object needing an owner.\n"
+            "2) predicate: relation hint between attached object and owner.\n"
+            "3) owner_candidates: allowed owner nodes; node_id is valid id space.\n\n"
+            "Your task:\n"
+            "- Select one owner_node_id from owner_candidates when evidence is sufficient.\n"
+            "- Return null when uncertain.\n\n"
+            "Hard constraints (MUST):\n"
+            "- owner_node_id must be null or one of owner_candidates.node_id.\n"
+            "- Do not output explanations or extra keys.\n\n"
+            "Output format (strict JSON only):\n"
+            "{\"owner_node_id\": int|null}\n\n"
             f"attached_node={{\"node_id\": {attached_node.id}, \"label\": {json.dumps(attached_node.latest_label(), ensure_ascii=False)}}}\n"
             f"predicate={json.dumps(relation_predicate, ensure_ascii=False)}\n"
             f"owner_candidates={json.dumps(candidates_payload, ensure_ascii=False)}"

@@ -77,7 +77,20 @@ def get_candidates(
 2. 若是首帧，pre 为空。
 3. 非首帧时，按尺寸比 + IoU/距离从图中召回历史节点（pre）。
 """
-    target = objects[idx]
+    target: dict | None = None
+    for item in objects:
+        try:
+            item_idx = int(item.get("idx", -1))
+        except Exception:
+            continue
+        if item_idx == idx:
+            target = item
+            break
+
+    if target is None:
+        # 输入异常时返回空候选，避免按列表下标访问导致崩溃。
+        return CandidateResult(cur_cmp=[], cur_context=[], pre=None if frame_id == 0 else [])
+
     target_box = target["box"]
     dist_thr = _distance_threshold(target_box, cfg)
 

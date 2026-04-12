@@ -107,6 +107,9 @@ class SpatialTemporalPipeline:
             "changed_nodes": self.graph.changed_nodes,
             "edge_action_events": self.graph.edge_action_events,
             "owner_decision_events": self.graph.owner_decision_events,
+            "llm_dedupe_events": self.graph.llm_dedupe_events,
+            "llm_match_events": self.graph.llm_match_events,
+            "llm_edge_decision_events": self.graph.llm_edge_decision_events,
         }
         out.write_text(json.dumps(payload, ensure_ascii=False, indent=2), encoding="utf-8")
 
