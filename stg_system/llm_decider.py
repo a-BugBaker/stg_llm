@@ -108,11 +108,11 @@ class LLMDecider:
             "   - idx: object index in current frame (the only valid id space for primary_idx/merged_idxs).\n"
             "   - iou, distance, score, label, attributes: evidence for selecting primary object.\n"
             "2) cur_context: nearby objects in current frame for disambiguation, NOT merge targets unless they are also in cmp_objects.\n"
-            "3) fallback_entity_type: rule-based fallback type, one of dynamic|static|attached.\n\n"
+            "3) fallback_entity_type: rule-based fallback type, one of dynamic|static.\n\n"
             "Your task:\n"
             "- Select exactly one primary_idx from cmp_objects.idx.\n"
             "- Select merged_idxs as subset of cmp_objects.idx (can include all duplicates).\n"
-            "- Decide entity_type from dynamic|static|attached.\n"
+            "- Decide entity_type from dynamic|static.\n"
             "- If uncertain, keep conservative and follow fallback_entity_type.\n\n"
             "Hard constraints (MUST):\n"
             "- primary_idx MUST be one of cmp_objects.idx.\n"
@@ -211,11 +211,11 @@ class LLMDecider:
     def decide_edge_action(self, new_describe: str, active_edges: List[RelationEdge]) -> Optional[EdgeDecision]:
         """判定新关系与历史关系的语义关系。
 
-返回动作：
-1. duplicate: 与已有边重复，丢弃。
-2. conflict: 与已有边冲突，旧边失效。
-3. new: 直接新增。
-"""
+        返回动作：
+        1. duplicate: 与已有边重复，丢弃。
+        2. conflict: 与已有边冲突，旧边失效。
+        3. new: 直接新增。
+        """
         if not self.available():
             return None
 
@@ -236,7 +236,7 @@ class LLMDecider:
             "Input fields meaning:\n"
             "1) new_relation.describe: new relation description to insert.\n"
             "2) existing_relations: active relation descriptions for the same endpoint pair.\n"
-            "   - If meaning is the same as any existing relation, action should be duplicate.\n"
+            "   - If meaning is the same as or significantly similar to any existing relation, action should be duplicate.\n"
             "   - If meaning contradicts an existing relation, action should be conflict.\n"
             "   - Otherwise action should be new.\n\n"
             "Hard constraints (MUST):\n"

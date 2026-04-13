@@ -1,0 +1,4428 @@
+[
+      {
+    "image_path": "/home/liuyz/hsgg/frames/frame_000000.png",
+    "objects": [
+      {
+        "idx": 0,
+        "box": [
+          401.859,
+          141.021,
+          506.932,
+          214.279
+        ],
+        "score": 0.795,
+        "label": "sign",
+        "attributes": "Red sign with white writing and logo",
+        "layer_id": 1,
+        "layer_mapping": [],
+        "relations": [
+          {
+            "predicate": "sign1 displaying score for floor",
+            "object_tag": "floor",
+            "idx": 24,
+            "confidence": 1.0
+          },
+          {
+            "predicate": "sign1 over court lines",
+            "object_tag": "court lines",
+            "idx": 29,
+            "confidence": 1.0
+          },
+          {
+            "predicate": "sign1 visible to player1",
+            "object_tag": "player1",
+            "idx": 5,
+            "confidence": 1.0
+          },
+          {
+            "predicate": "man1 below sign1",
+            "object_tag": "man1",
+            "idx": 2,
+            "confidence": 1.0
+          },
+          {
+            "predicate": "sign1 adjacent to banner",
+            "object_tag": "banner",
+            "idx": 14,
+            "confidence": 1.0
+          },
+          {
+            "predicate": "logo associated with sign1",
+            "object_tag": "logo",
+            "idx": 20,
+            "confidence": 1.0
+          },
+          {
+            "predicate": "sign1 near basketball hoop",
+            "object_tag": "basketball hoop",
+            "idx": 9,
+            "confidence": 1.0
+          }
+        ]
+      },
+      {
+        "idx": 1,
+        "box": [
+          895.205,
+          27.241,
+          945.171,
+          135.262
+        ],
+        "score": 0.731,
+        "label": "water bottle",
+        "attributes": "White plastic water bottle with black writing",
+        "layer_id": 1,
+        "layer_mapping": [],
+        "relations": [
+          {
+            "predicate": "water bottle1 close to sign2",
+            "object_tag": "sign2",
+            "idx": 4,
+            "confidence": 1.0
+          },
+          {
+            "predicate": "water bottle1 displayed in advertisement",
+            "object_tag": "advertisement",
+            "idx": 28,
+            "confidence": 0.5
+          },
+          {
+            "predicate": "water bottle1 reflected in window2",
+            "object_tag": "window2",
+            "idx": 18,
+            "confidence": 1.0
+          }
+        ]
+      },
+      {
+        "idx": 2,
+        "box": [
+          286.055,
+          310.629,
+          334.201,
+          453.132
+        ],
+        "score": 0.727,
+        "label": "man",
+        "attributes": "Basketball player wearing yellow jersey and black sneakers",
+        "layer_id": 1,
+        "layer_mapping": [
+          {
+            "idx": 44,
+            "tag": "shirt2"
+          },
+          {
+            "idx": 49,
+            "tag": "shoes4"
+          }
+        ],
+        "relations": [
+          {
+            "predicate": "man1 wear shoes on floor",
+            "object_tag": "floor",
+            "idx": 24,
+            "confidence": 1.0
+          },
+          {
+            "predicate": "banner behind man1",
+            "object_tag": "banner",
+            "idx": 14,
+            "confidence": 1.0
+          },
+          {
+            "predicate": "court lines beneath man1",
+            "object_tag": "court lines",
+            "idx": 29,
+            "confidence": 1.0
+          },
+          {
+            "predicate": "logo behind man1",
+            "object_tag": "logo",
+            "idx": 20,
+            "confidence": 1.0
+          },
+          {
+            "predicate": "basketball hoop behind man1",
+            "object_tag": "basketball hoop",
+            "idx": 9,
+            "confidence": 1.0
+          },
+          {
+            "predicate": "player1 face towards man1",
+            "object_tag": "player1",
+            "idx": 5,
+            "confidence": 1.0
+          },
+          {
+            "predicate": "man1 below sign1",
+            "object_tag": "sign1",
+            "idx": 0,
+            "confidence": 1.0
+          }
+        ]
+      },
+      {
+        "idx": 3,
+        "box": [
+          240.889,
+          252.922,
+          279.494,
+          312.218
+        ],
+        "score": 0.725,
+        "label": "window",
+        "attributes": "Metal barred window",
+        "layer_id": 1,
+        "layer_mapping": [],
+        "relations": []
+      },
+      {
+        "idx": 4,
+        "box": [
+          0.198,
+          39.444,
+          205.297,
+          140.599
+        ],
+        "score": 0.703,
+        "label": "sign",
+        "attributes": "Sign with white letters on blue background",
+        "layer_id": 1,
+        "layer_mapping": [],
+        "relations": [
+          {
+            "predicate": "advertisement beside sign2",
+            "object_tag": "advertisement",
+            "idx": 28,
+            "confidence": 0.5
+          },
+          {
+            "predicate": "sign2 over door2",
+            "object_tag": "door2",
+            "idx": 13,
+            "confidence": 1.0
+          },
+          {
+            "predicate": "sign2 near staircase",
+            "object_tag": "staircase",
+            "idx": 27,
+            "confidence": 1.0
+          },
+          {
+            "predicate": "sign2 near door1",
+            "object_tag": "door1",
+            "idx": 10,
+            "confidence": 1.0
+          },
+          {
+            "predicate": "man2 stands before sign2",
+            "object_tag": "man2",
+            "idx": 11,
+            "confidence": 0.5
+          },
+          {
+            "predicate": "sign2 adjacent to window2",
+            "object_tag": "window2",
+            "idx": 18,
+            "confidence": 1.0
+          },
+          {
+            "predicate": "water bottle2 below sign2",
+            "object_tag": "water bottle2",
+            "idx": 16,
+            "confidence": 0.5
+          },
+          {
+            "predicate": "water bottle1 close to sign2",
+            "object_tag": "water bottle1",
+            "idx": 1,
+            "confidence": 1.0
+          }
+        ]
+      },
+      {
+        "idx": 5,
+        "box": [
+          0.168,
+          326.305,
+          45.36,
+          441.145
+        ],
+        "score": 0.698,
+        "label": "player",
+        "attributes": "Basketball player in yellow jersey and white shorts",
+        "layer_id": 1,
+        "layer_mapping": [
+          {
+            "idx": 35,
+            "tag": "shorts1"
+          },
+          {
+            "idx": 65,
+            "tag": "socks2"
+          },
+          {
+            "idx": 38,
+            "tag": "shoes1"
+          },
+          {
+            "idx": 40,
+            "tag": "shoes2"
+          },
+          {
+            "idx": 69,
+            "tag": "shoes10"
+          }
+        ],
+        "relations": [
+          {
+            "predicate": "floor beneath player1",
+            "object_tag": "floor",
+            "idx": 24,
+            "confidence": 1.0
+          },
+          {
+            "predicate": "player1 stand near banner",
+            "object_tag": "banner",
+            "idx": 14,
+            "confidence": 1.0
+          },
+          {
+            "predicate": "logo on player1 jersey",
+            "object_tag": "logo",
+            "idx": 20,
+            "confidence": 1.0
+          },
+          {
+            "predicate": "player1 facing basketball hoop",
+            "object_tag": "basketball hoop",
+            "idx": 9,
+            "confidence": 1.0
+          },
+          {
+            "predicate": "player1 within court lines",
+            "object_tag": "court lines",
+            "idx": 29,
+            "confidence": 1.0
+          },
+          {
+            "predicate": "player1 approaching staircase",
+            "object_tag": "staircase",
+            "idx": 27,
+            "confidence": 1.0
+          },
+          {
+            "predicate": "sign1 visible to player1",
+            "object_tag": "sign1",
+            "idx": 0,
+            "confidence": 1.0
+          },
+          {
+            "predicate": "player1 face towards man1",
+            "object_tag": "man1",
+            "idx": 2,
+            "confidence": 1.0
+          }
+        ]
+      },
+      {
+        "idx": 6,
+        "box": [
+          297.575,
+          345.856,
+          312.272,
+          364.008
+        ],
+        "score": 0.654,
+        "label": "number",
+        "attributes": "Number 1 on back of basketball player",
+        "layer_id": 1,
+        "layer_mapping": [],
+        "relations": []
+      },
+      {
+        "idx": 7,
+        "box": [
+          92.782,
+          299.807,
+          133.937,
+          362.833
+        ],
+        "score": 0.631,
+        "label": "player",
+        "attributes": "Basketball player in mid-action, wearing white and yellow uniform",
+        "layer_id": 1,
+        "layer_mapping": [
+          {
+            "idx": 42,
+            "tag": "shorts4"
+          },
+          {
+            "idx": 54,
+            "tag": "shoes6"
+          }
+        ],
+        "relations": []
+      },
+      {
+        "idx": 8,
+        "box": [
+          288.491,
+          330.89,
+          327.25,
+          393.523
+        ],
+        "score": 0.605,
+        "label": "jersey",
+        "attributes": "Yellow basketball jersey with number 62",
+        "layer_id": 1,
+        "layer_mapping": [],
+        "relations": []
+      },
+      {
+        "idx": 9,
+        "box": [
+          409.692,
+          184.455,
+          469.374,
+          228.48
+        ],
+        "score": 0.568,
+        "label": "basketball hoop",
+        "attributes": "Basketball hoop in a video game",
+        "layer_id": 1,
+        "layer_mapping": [],
+        "relations": [
+          {
+            "predicate": "floor below basketball hoop",
+            "object_tag": "floor",
+            "idx": 24,
+            "confidence": 1.0
+          },
+          {
+            "predicate": "basketball hoop within boundaries of court lines",
+            "object_tag": "court lines",
+            "idx": 29,
+            "confidence": 1.0
+          },
+          {
+            "predicate": "banner below basketball hoop",
+            "object_tag": "banner",
+            "idx": 14,
+            "confidence": 1.0
+          },
+          {
+            "predicate": "logo over basketball hoop",
+            "object_tag": "logo",
+            "idx": 20,
+            "confidence": 1.0
+          },
+          {
+            "predicate": "player1 facing basketball hoop",
+            "object_tag": "player1",
+            "idx": 5,
+            "confidence": 1.0
+          },
+          {
+            "predicate": "basketball hoop behind man1",
+            "object_tag": "man1",
+            "idx": 2,
+            "confidence": 1.0
+          },
+          {
+            "predicate": "sign1 near basketball hoop",
+            "object_tag": "sign1",
+            "idx": 0,
+            "confidence": 1.0
+          }
+        ]
+      },
+      {
+        "idx": 10,
+        "box": [
+          177.122,
+          257.949,
+          210.71,
+          349.348
+        ],
+        "score": 0.564,
+        "label": "door",
+        "attributes": "Black metal door with window and handle",
+        "layer_id": 1,
+        "layer_mapping": [],
+        "relations": [
+          {
+            "predicate": "advertisement is adjacent to door1",
+            "object_tag": "advertisement",
+            "idx": 28,
+            "confidence": 1.0
+          },
+          {
+            "predicate": "door1 and window2 adjacent",
+            "object_tag": "window2",
+            "idx": 18,
+            "confidence": 1.0
+          },
+          {
+            "predicate": "door1 adjacent to door2",
+            "object_tag": "door2",
+            "idx": 13,
+            "confidence": 1.0
+          },
+          {
+            "predicate": "man2 approach door1",
+            "object_tag": "man2",
+            "idx": 11,
+            "confidence": 1.0
+          },
+          {
+            "predicate": "sign2 near door1",
+            "object_tag": "sign2",
+            "idx": 4,
+            "confidence": 1.0
+          }
+        ]
+      },
+      {
+        "idx": 11,
+        "box": [
+          54.551,
+          217.324,
+          125.364,
+          325.462
+        ],
+        "score": 0.564,
+        "label": "man",
+        "attributes": "Basketball player wearing red jersey with white number 7",
+        "layer_id": 1,
+        "layer_mapping": [
+          {
+            "idx": 45,
+            "tag": "shirt3"
+          }
+        ],
+        "relations": [
+          {
+            "predicate": "advertisement show man2",
+            "object_tag": "advertisement",
+            "idx": 28,
+            "confidence": 1.0
+          },
+          {
+            "predicate": "door2 beside man2",
+            "object_tag": "door2",
+            "idx": 13,
+            "confidence": 1.0
+          },
+          {
+            "predicate": "man2 stands before sign2",
+            "object_tag": "sign2",
+            "idx": 4,
+            "confidence": 0.5
+          },
+          {
+            "predicate": "man2 approach door1",
+            "object_tag": "door1",
+            "idx": 10,
+            "confidence": 1.0
+          }
+        ]
+      },
+      {
+        "idx": 12,
+        "box": [
+          315.179,
+          413.894,
+          325.561,
+          435.631
+        ],
+        "score": 0.54,
+        "label": "sock",
+        "attributes": "Black sock on foot of person in yellow outfit",
+        "layer_id": 1,
+        "layer_mapping": [],
+        "relations": []
+      },
+      {
+        "idx": 13,
+        "box": [
+          34.835,
+          153.387,
+          143.634,
+          372.272
+        ],
+        "score": 0.516,
+        "label": "door",
+        "attributes": "Door in a wall",
+        "layer_id": 1,
+        "layer_mapping": [],
+        "relations": [
+          {
+            "predicate": "door2 adjacent to advertisement",
+            "object_tag": "advertisement",
+            "idx": 28,
+            "confidence": 1.0
+          },
+          {
+            "predicate": "window2 beside door2",
+            "object_tag": "window2",
+            "idx": 18,
+            "confidence": 1.0
+          },
+          {
+            "predicate": "door2 and water bottle2 are adjacent",
+            "object_tag": "water bottle2",
+            "idx": 16,
+            "confidence": 1.0
+          },
+          {
+            "predicate": "door2 opens into staircase",
+            "object_tag": "staircase",
+            "idx": 27,
+            "confidence": 1.0
+          },
+          {
+            "predicate": "sign2 over door2",
+            "object_tag": "sign2",
+            "idx": 4,
+            "confidence": 1.0
+          },
+          {
+            "predicate": "door1 adjacent to door2",
+            "object_tag": "door1",
+            "idx": 10,
+            "confidence": 1.0
+          },
+          {
+            "predicate": "door2 beside man2",
+            "object_tag": "man2",
+            "idx": 11,
+            "confidence": 1.0
+          }
+        ]
+      },
+      {
+        "idx": 14,
+        "box": [
+          311.003,
+          160.387,
+          556.187,
+          364.63
+        ],
+        "score": 0.507,
+        "label": "banner",
+        "attributes": "Black banner with white and red writing and graphics",
+        "layer_id": 1,
+        "layer_mapping": [],
+        "relations": [
+          {
+            "predicate": "floor below banner",
+            "object_tag": "floor",
+            "idx": 24,
+            "confidence": 1.0
+          },
+          {
+            "predicate": "banner behind court lines",
+            "object_tag": "court lines",
+            "idx": 29,
+            "confidence": 1.0
+          },
+          {
+            "predicate": "banner above logo",
+            "object_tag": "logo",
+            "idx": 20,
+            "confidence": 1.0
+          },
+          {
+            "predicate": "player1 stand near banner",
+            "object_tag": "player1",
+            "idx": 5,
+            "confidence": 1.0
+          },
+          {
+            "predicate": "banner behind man1",
+            "object_tag": "man1",
+            "idx": 2,
+            "confidence": 1.0
+          },
+          {
+            "predicate": "sign1 adjacent to banner",
+            "object_tag": "sign1",
+            "idx": 0,
+            "confidence": 1.0
+          },
+          {
+            "predicate": "banner below basketball hoop",
+            "object_tag": "basketball hoop",
+            "idx": 9,
+            "confidence": 1.0
+          }
+        ]
+      },
+      {
+        "idx": 15,
+        "box": [
+          83.98,
+          256.09,
+          96.935,
+          286.079
+        ],
+        "score": 0.504,
+        "label": "number",
+        "attributes": "Number 7 on jersey",
+        "layer_id": 1,
+        "layer_mapping": [],
+        "relations": []
+      },
+      {
+        "idx": 16,
+        "box": [
+          157.846,
+          63.637,
+          194.096,
+          152.233
+        ],
+        "score": 0.497,
+        "label": "water bottle",
+        "attributes": "Water bottle with white shirt design",
+        "layer_id": 1,
+        "layer_mapping": [
+          {
+            "idx": 66,
+            "tag": "label2"
+          }
+        ],
+        "relations": [
+          {
+            "predicate": "water bottle2 close to advertisement",
+            "object_tag": "advertisement",
+            "idx": 28,
+            "confidence": 1.0
+          },
+          {
+            "predicate": "window2 reflects water bottle2",
+            "object_tag": "window2",
+            "idx": 18,
+            "confidence": 1.0
+          },
+          {
+            "predicate": "label2 on water bottle2",
+            "object_tag": "label2",
+            "idx": 66,
+            "confidence": 1.0
+          },
+          {
+            "predicate": "door2 and water bottle2 are adjacent",
+            "object_tag": "door2",
+            "idx": 13,
+            "confidence": 1.0
+          },
+          {
+            "predicate": "water bottle2 below sign2",
+            "object_tag": "sign2",
+            "idx": 4,
+            "confidence": 0.5
+          }
+        ]
+      },
+      {
+        "idx": 17,
+        "box": [
+          296.116,
+          411.592,
+          306.193,
+          427.47
+        ],
+        "score": 0.466,
+        "label": "sock",
+        "attributes": "White sock on foot",
+        "layer_id": 1,
+        "layer_mapping": [],
+        "relations": []
+      },
+      {
+        "idx": 18,
+        "box": [
+          356.161,
+          49.604,
+          548.913,
+          127.082
+        ],
+        "score": 0.443,
+        "label": "window",
+        "attributes": "Window on side of bus",
+        "layer_id": 1,
+        "layer_mapping": [],
+        "relations": [
+          {
+            "predicate": "window2 adjacent to advertisement",
+            "object_tag": "advertisement",
+            "idx": 28,
+            "confidence": 1.0
+          },
+          {
+            "predicate": "window2 beside door2",
+            "object_tag": "door2",
+            "idx": 13,
+            "confidence": 1.0
+          },
+          {
+            "predicate": "door1 and window2 adjacent",
+            "object_tag": "door1",
+            "idx": 10,
+            "confidence": 1.0
+          },
+          {
+            "predicate": "water bottle1 reflected in window2",
+            "object_tag": "water bottle1",
+            "idx": 1,
+            "confidence": 1.0
+          },
+          {
+            "predicate": "sign2 adjacent to window2",
+            "object_tag": "sign2",
+            "idx": 4,
+            "confidence": 1.0
+          },
+          {
+            "predicate": "window2 reflects water bottle2",
+            "object_tag": "water bottle2",
+            "idx": 16,
+            "confidence": 1.0
+          }
+        ]
+      },
+      {
+        "idx": 19,
+        "box": [
+          93.489,
+          307.623,
+          113.486,
+          342.294
+        ],
+        "score": 0.417,
+        "label": "jersey",
+        "attributes": "Jersey with white writing on back",
+        "layer_id": 1,
+        "layer_mapping": [],
+        "relations": []
+      },
+      {
+        "idx": 20,
+        "box": [
+          350.845,
+          195.262,
+          498.466,
+          339.169
+        ],
+        "score": 0.416,
+        "label": "logo",
+        "attributes": "Logo with white letters inside red box",
+        "layer_id": 1,
+        "layer_mapping": [
+          {
+            "idx": 52,
+            "tag": "text"
+          }
+        ],
+        "relations": [
+          {
+            "predicate": "floor has logo",
+            "object_tag": "floor",
+            "idx": 24,
+            "confidence": 1.0
+          },
+          {
+            "predicate": "logo over court lines",
+            "object_tag": "court lines",
+            "idx": 29,
+            "confidence": 1.0
+          },
+          {
+            "predicate": "logo associated with text",
+            "object_tag": "text",
+            "idx": 52,
+            "confidence": 1.0
+          },
+          {
+            "predicate": "logo on player1 jersey",
+            "object_tag": "player1",
+            "idx": 5,
+            "confidence": 1.0
+          },
+          {
+            "predicate": "logo behind man1",
+            "object_tag": "man1",
+            "idx": 2,
+            "confidence": 1.0
+          },
+          {
+            "predicate": "banner above logo",
+            "object_tag": "banner",
+            "idx": 14,
+            "confidence": 1.0
+          },
+          {
+            "predicate": "logo associated with sign1",
+            "object_tag": "sign1",
+            "idx": 0,
+            "confidence": 1.0
+          },
+          {
+            "predicate": "logo over basketball hoop",
+            "object_tag": "basketball hoop",
+            "idx": 9,
+            "confidence": 1.0
+          }
+        ]
+      },
+      {
+        "idx": 21,
+        "box": [
+          0.979,
+          335.578,
+          33.462,
+          386.905
+        ],
+        "score": 0.41,
+        "label": "jersey",
+        "attributes": "Yellow basketball jersey with number 00",
+        "layer_id": 1,
+        "layer_mapping": [],
+        "relations": []
+      },
+      {
+        "idx": 22,
+        "box": [
+          8.115,
+          425.448,
+          20.743,
+          439.49
+        ],
+        "score": 0.406,
+        "label": "shoe",
+        "attributes": "White sneaker with black sole",
+        "layer_id": 1,
+        "layer_mapping": [],
+        "relations": []
+      },
+      {
+        "idx": 23,
+        "box": [
+          426.13,
+          198.558,
+          467.012,
+          226.912
+        ],
+        "score": 0.401,
+        "label": "backboard",
+        "attributes": "Black backboard with white writing",
+        "layer_id": 1,
+        "layer_mapping": [],
+        "relations": []
+      },
+      {
+        "idx": 24,
+        "box": [
+          1.374,
+          347.398,
+          913.817,
+          542.798
+        ],
+        "score": 0.376,
+        "label": "floor",
+        "attributes": "Wooden basketball court with orange and black markings",
+        "layer_id": 1,
+        "layer_mapping": [],
+        "relations": [
+          {
+            "predicate": "floor has court lines",
+            "object_tag": "court lines",
+            "idx": 29,
+            "confidence": 1.0
+          },
+          {
+            "predicate": "sign1 displaying score for floor",
+            "object_tag": "sign1",
+            "idx": 0,
+            "confidence": 1.0
+          },
+          {
+            "predicate": "floor below banner",
+            "object_tag": "banner",
+            "idx": 14,
+            "confidence": 1.0
+          },
+          {
+            "predicate": "floor below basketball hoop",
+            "object_tag": "basketball hoop",
+            "idx": 9,
+            "confidence": 1.0
+          },
+          {
+            "predicate": "floor has logo",
+            "object_tag": "logo",
+            "idx": 20,
+            "confidence": 1.0
+          },
+          {
+            "predicate": "man1 wear shoes on floor",
+            "object_tag": "man1",
+            "idx": 2,
+            "confidence": 1.0
+          },
+          {
+            "predicate": "floor beneath player1",
+            "object_tag": "player1",
+            "idx": 5,
+            "confidence": 1.0
+          }
+        ]
+      },
+      {
+        "idx": 25,
+        "box": [
+          33.917,
+          426.38,
+          45.38,
+          440.695
+        ],
+        "score": 0.365,
+        "label": "shoe",
+        "attributes": "Red rubber shoe with white sole",
+        "layer_id": 1,
+        "layer_mapping": [],
+        "relations": []
+      },
+      {
+        "idx": 26,
+        "box": [
+          18.519,
+          349.488,
+          29.29,
+          370.621
+        ],
+        "score": 0.365,
+        "label": "number",
+        "attributes": "Number 3 on back of basketball player",
+        "layer_id": 1,
+        "layer_mapping": [],
+        "relations": []
+      },
+      {
+        "idx": 27,
+        "box": [
+          48.92,
+          319.975,
+          131.272,
+          370.825
+        ],
+        "score": 0.352,
+        "label": "staircase",
+        "attributes": "Staircase in gym",
+        "layer_id": 1,
+        "layer_mapping": [
+          {
+            "idx": 53,
+            "tag": "steps"
+          }
+        ],
+        "relations": [
+          {
+            "predicate": "advertisement beside staircase",
+            "object_tag": "advertisement",
+            "idx": 28,
+            "confidence": 1.0
+          },
+          {
+            "predicate": "sign2 near staircase",
+            "object_tag": "sign2",
+            "idx": 4,
+            "confidence": 1.0
+          },
+          {
+            "predicate": "door2 opens into staircase",
+            "object_tag": "door2",
+            "idx": 13,
+            "confidence": 1.0
+          },
+          {
+            "predicate": "player1 approaching staircase",
+            "object_tag": "player1",
+            "idx": 5,
+            "confidence": 1.0
+          }
+        ]
+      },
+      {
+        "idx": 28,
+        "box": [
+          607.162,
+          8.388,
+          953.636,
+          215.996
+        ],
+        "score": 0.34,
+        "label": "advertisement",
+        "attributes": "Advertisement for beverage with slogan and logo",
+        "layer_id": 1,
+        "layer_mapping": [
+          {
+            "idx": 60,
+            "tag": "slogan"
+          }
+        ],
+        "relations": [
+          {
+            "predicate": "advertisement features slogan",
+            "object_tag": "slogan",
+            "idx": 60,
+            "confidence": 1.0
+          },
+          {
+            "predicate": "door2 adjacent to advertisement",
+            "object_tag": "door2",
+            "idx": 13,
+            "confidence": 1.0
+          },
+          {
+            "predicate": "advertisement beside staircase",
+            "object_tag": "staircase",
+            "idx": 27,
+            "confidence": 1.0
+          },
+          {
+            "predicate": "advertisement show man2",
+            "object_tag": "man2",
+            "idx": 11,
+            "confidence": 1.0
+          },
+          {
+            "predicate": "advertisement is adjacent to door1",
+            "object_tag": "door1",
+            "idx": 10,
+            "confidence": 1.0
+          },
+          {
+            "predicate": "advertisement beside sign2",
+            "object_tag": "sign2",
+            "idx": 4,
+            "confidence": 0.5
+          },
+          {
+            "predicate": "water bottle2 close to advertisement",
+            "object_tag": "water bottle2",
+            "idx": 16,
+            "confidence": 1.0
+          },
+          {
+            "predicate": "window2 adjacent to advertisement",
+            "object_tag": "window2",
+            "idx": 18,
+            "confidence": 1.0
+          },
+          {
+            "predicate": "water bottle1 displayed in advertisement",
+            "object_tag": "water bottle1",
+            "idx": 1,
+            "confidence": 0.5
+          }
+        ]
+      },
+      {
+        "idx": 29,
+        "box": [
+          166.441,
+          369.022,
+          622.696,
+          469.271
+        ],
+        "score": 0.336,
+        "label": "court lines",
+        "attributes": "Orange and black basketball court lines",
+        "layer_id": 1,
+        "layer_mapping": [],
+        "relations": [
+          {
+            "predicate": "floor has court lines",
+            "object_tag": "floor",
+            "idx": 24,
+            "confidence": 1.0
+          },
+          {
+            "predicate": "sign1 over court lines",
+            "object_tag": "sign1",
+            "idx": 0,
+            "confidence": 1.0
+          },
+          {
+            "predicate": "banner behind court lines",
+            "object_tag": "banner",
+            "idx": 14,
+            "confidence": 1.0
+          },
+          {
+            "predicate": "basketball hoop within boundaries of court lines",
+            "object_tag": "basketball hoop",
+            "idx": 9,
+            "confidence": 1.0
+          },
+          {
+            "predicate": "logo over court lines",
+            "object_tag": "logo",
+            "idx": 20,
+            "confidence": 1.0
+          },
+          {
+            "predicate": "player1 within court lines",
+            "object_tag": "player1",
+            "idx": 5,
+            "confidence": 1.0
+          },
+          {
+            "predicate": "court lines beneath man1",
+            "object_tag": "man1",
+            "idx": 2,
+            "confidence": 1.0
+          }
+        ]
+      },
+      {
+        "idx": 30,
+        "box": [
+          324.326,
+          384.34,
+          333.792,
+          399.475
+        ],
+        "score": 0.334,
+        "label": "glove",
+        "attributes": "Yellow rubber glove on a yellow pole",
+        "layer_id": 1,
+        "layer_mapping": [],
+        "relations": []
+      },
+      {
+        "idx": 31,
+        "box": [
+          840.111,
+          312.16,
+          848.802,
+          328.342
+        ],
+        "score": 0.311,
+        "label": "ball",
+        "attributes": "Red rubber ball",
+        "layer_id": 1,
+        "layer_mapping": [],
+        "relations": []
+      },
+      {
+        "idx": 32,
+        "box": [
+          294.624,
+          309.37,
+          315.771,
+          323.19
+        ],
+        "score": 0.308,
+        "label": "cap",
+        "attributes": "Yellow plastic cap",
+        "layer_id": 1,
+        "layer_mapping": [],
+        "relations": []
+      },
+      {
+        "idx": 33,
+        "box": [
+          584.688,
+          225.454,
+          598.112,
+          242.14
+        ],
+        "score": 0.305,
+        "label": "helmet",
+        "attributes": "White plastic helmet",
+        "layer_id": 1,
+        "layer_mapping": [],
+        "relations": []
+      },
+      {
+        "idx": 34,
+        "box": [
+          85.512,
+          191.568,
+          103.383,
+          223.583
+        ],
+        "score": 0.301,
+        "label": "headband",
+        "attributes": "Red band around head",
+        "layer_id": 1,
+        "layer_mapping": [],
+        "relations": []
+      },
+      {
+        "idx": 35,
+        "box": [
+          8.519,
+          384.913,
+          33.904,
+          405.964
+        ],
+        "score": 0.789,
+        "label": "shorts",
+        "attributes": "White shorts",
+        "layer_id": 2,
+        "layer_mapping": [],
+        "relations": []
+      },
+      {
+        "idx": 36,
+        "box": [
+          295.151,
+          390.478,
+          328.197,
+          415.487
+        ],
+        "score": 0.782,
+        "label": "shorts",
+        "attributes": "",
+        "layer_id": 1,
+        "layer_mapping": [],
+        "relations": []
+      },
+      {
+        "idx": 37,
+        "box": [
+          315.423,
+          414.177,
+          325.54,
+          435.662
+        ],
+        "score": 0.692,
+        "label": "socks",
+        "attributes": "",
+        "layer_id": 1,
+        "layer_mapping": [],
+        "relations": []
+      },
+      {
+        "idx": 38,
+        "box": [
+          8.109,
+          425.211,
+          20.613,
+          439.503
+        ],
+        "score": 0.644,
+        "label": "shoes",
+        "attributes": "White sneakers with black laces and sole",
+        "layer_id": 2,
+        "layer_mapping": [],
+        "relations": []
+      },
+      {
+        "idx": 39,
+        "box": [
+          632.407,
+          282.66,
+          649.103,
+          303.923
+        ],
+        "score": 0.61,
+        "label": "shorts",
+        "attributes": "",
+        "layer_id": 1,
+        "layer_mapping": [],
+        "relations": []
+      },
+      {
+        "idx": 40,
+        "box": [
+          33.914,
+          426.384,
+          45.338,
+          440.785
+        ],
+        "score": 0.588,
+        "label": "shoes",
+        "attributes": "White sneakers with black laces",
+        "layer_id": 2,
+        "layer_mapping": [],
+        "relations": []
+      },
+      {
+        "idx": 41,
+        "box": [
+          402.098,
+          141.223,
+          506.345,
+          213.678
+        ],
+        "score": 0.584,
+        "label": "label",
+        "attributes": "",
+        "layer_id": 1,
+        "layer_mapping": [],
+        "relations": []
+      },
+      {
+        "idx": 42,
+        "box": [
+          95.034,
+          328.998,
+          113.005,
+          342.86
+        ],
+        "score": 0.54,
+        "label": "shorts",
+        "attributes": "White shorts with black stripes down sides",
+        "layer_id": 2,
+        "layer_mapping": [],
+        "relations": []
+      },
+      {
+        "idx": 43,
+        "box": [
+          0.762,
+          335.693,
+          33.232,
+          386.924
+        ],
+        "score": 0.493,
+        "label": "shirt",
+        "attributes": "",
+        "layer_id": 1,
+        "layer_mapping": [],
+        "relations": []
+      },
+      {
+        "idx": 44,
+        "box": [
+          288.192,
+          330.815,
+          328.731,
+          393.545
+        ],
+        "score": 0.489,
+        "label": "shirt",
+        "attributes": "Yellow basketball jersey with number 62",
+        "layer_id": 2,
+        "layer_mapping": [],
+        "relations": []
+      },
+      {
+        "idx": 45,
+        "box": [
+          93.936,
+          307.332,
+          111.689,
+          330.311
+        ],
+        "score": 0.467,
+        "label": "shirt",
+        "attributes": "Red basketball jersey with white number 7",
+        "layer_id": 2,
+        "layer_mapping": [],
+        "relations": []
+      },
+      {
+        "idx": 46,
+        "box": [
+          295.958,
+          412.177,
+          306.293,
+          427.853
+        ],
+        "score": 0.445,
+        "label": "socks shoes",
+        "attributes": "",
+        "layer_id": 1,
+        "layer_mapping": [],
+        "relations": []
+      },
+      {
+        "idx": 47,
+        "box": [
+          895.699,
+          332.612,
+          905.189,
+          347.188
+        ],
+        "score": 0.435,
+        "label": "shoes",
+        "attributes": "",
+        "layer_id": 1,
+        "layer_mapping": [],
+        "relations": []
+      },
+      {
+        "idx": 48,
+        "box": [
+          311.253,
+          161.032,
+          556.316,
+          364.001
+        ],
+        "score": 0.428,
+        "label": "fabric",
+        "attributes": "",
+        "layer_id": 1,
+        "layer_mapping": [],
+        "relations": []
+      },
+      {
+        "idx": 49,
+        "box": [
+          315.922,
+          433.55,
+          332.391,
+          455.1
+        ],
+        "score": 0.418,
+        "label": "shoes",
+        "attributes": "Black sneakers with white soles",
+        "layer_id": 2,
+        "layer_mapping": [],
+        "relations": []
+      },
+      {
+        "idx": 50,
+        "box": [
+          688.567,
+          320.648,
+          700.204,
+          332.898
+        ],
+        "score": 0.404,
+        "label": "shoes",
+        "attributes": "",
+        "layer_id": 1,
+        "layer_mapping": [],
+        "relations": []
+      },
+      {
+        "idx": 51,
+        "box": [
+          592.147,
+          293.954,
+          610.292,
+          311.882
+        ],
+        "score": 0.399,
+        "label": "shorts",
+        "attributes": "",
+        "layer_id": 1,
+        "layer_mapping": [],
+        "relations": []
+      },
+      {
+        "idx": 52,
+        "box": [
+          368.9,
+          277.176,
+          493.752,
+          315.507
+        ],
+        "score": 0.383,
+        "label": "text",
+        "attributes": "White letters in red box",
+        "layer_id": 2,
+        "layer_mapping": [],
+        "relations": [
+          {
+            "predicate": "logo associated with text",
+            "object_tag": "logo",
+            "idx": 20,
+            "confidence": 1.0
+          }
+        ]
+      },
+      {
+        "idx": 53,
+        "box": [
+          53.774,
+          321.715,
+          106.012,
+          369.299
+        ],
+        "score": 0.381,
+        "label": "steps",
+        "attributes": "Stairs in gym",
+        "layer_id": 2,
+        "layer_mapping": [],
+        "relations": []
+      },
+      {
+        "idx": 54,
+        "box": [
+          105.315,
+          352.041,
+          113.792,
+          362.676
+        ],
+        "score": 0.375,
+        "label": "shoes",
+        "attributes": "Brown leather dress shoes",
+        "layer_id": 2,
+        "layer_mapping": [],
+        "relations": []
+      },
+      {
+        "idx": 55,
+        "box": [
+          904.319,
+          334.197,
+          912.59,
+          347.623
+        ],
+        "score": 0.356,
+        "label": "shoes",
+        "attributes": "",
+        "layer_id": 1,
+        "layer_mapping": [],
+        "relations": []
+      },
+      {
+        "idx": 56,
+        "box": [
+          82.534,
+          229.33,
+          101.34,
+          239.315
+        ],
+        "score": 0.353,
+        "label": "collar",
+        "attributes": "",
+        "layer_id": 1,
+        "layer_mapping": [],
+        "relations": []
+      },
+      {
+        "idx": 57,
+        "box": [
+          854.568,
+          238.03,
+          883.107,
+          268.545
+        ],
+        "score": 0.353,
+        "label": "shirt",
+        "attributes": "",
+        "layer_id": 1,
+        "layer_mapping": [],
+        "relations": []
+      },
+      {
+        "idx": 58,
+        "box": [
+          852.25,
+          326.56,
+          860.486,
+          337.371
+        ],
+        "score": 0.347,
+        "label": "shoes",
+        "attributes": "",
+        "layer_id": 1,
+        "layer_mapping": [],
+        "relations": []
+      },
+      {
+        "idx": 59,
+        "box": [
+          0.212,
+          39.865,
+          205.107,
+          139.416
+        ],
+        "score": 0.344,
+        "label": "fabric",
+        "attributes": "",
+        "layer_id": 1,
+        "layer_mapping": [],
+        "relations": []
+      },
+      {
+        "idx": 60,
+        "box": [
+          740.578,
+          53.916,
+          894.645,
+          130.26
+        ],
+        "score": 0.33,
+        "label": "slogan",
+        "attributes": "Slogan on wall",
+        "layer_id": 2,
+        "layer_mapping": [],
+        "relations": [
+          {
+            "predicate": "advertisement features slogan",
+            "object_tag": "advertisement",
+            "idx": 28,
+            "confidence": 1.0
+          }
+        ]
+      },
+      {
+        "idx": 61,
+        "box": [
+          899.426,
+          304.796,
+          924.673,
+          332.661
+        ],
+        "score": 0.329,
+        "label": "pants",
+        "attributes": "",
+        "layer_id": 1,
+        "layer_mapping": [],
+        "relations": []
+      },
+      {
+        "idx": 62,
+        "box": [
+          628.858,
+          322.575,
+          641.094,
+          334.123
+        ],
+        "score": 0.327,
+        "label": "shoes",
+        "attributes": "",
+        "layer_id": 1,
+        "layer_mapping": [],
+        "relations": []
+      },
+      {
+        "idx": 63,
+        "box": [
+          590.571,
+          266.012,
+          610.158,
+          298.287
+        ],
+        "score": 0.325,
+        "label": "shirt",
+        "attributes": "",
+        "layer_id": 1,
+        "layer_mapping": [],
+        "relations": []
+      },
+      {
+        "idx": 64,
+        "box": [
+          894.8,
+          242.872,
+          916.59,
+          277.125
+        ],
+        "score": 0.32,
+        "label": "shirt",
+        "attributes": "",
+        "layer_id": 1,
+        "layer_mapping": [],
+        "relations": []
+      },
+      {
+        "idx": 65,
+        "box": [
+          35.3,
+          419.733,
+          41.575,
+          428.835
+        ],
+        "score": 0.319,
+        "label": "socks",
+        "attributes": "White ankle socks",
+        "layer_id": 2,
+        "layer_mapping": [],
+        "relations": []
+      },
+      {
+        "idx": 66,
+        "box": [
+          157.911,
+          79.392,
+          194.298,
+          152.001
+        ],
+        "score": 0.317,
+        "label": "label",
+        "attributes": "White shirt with black writing on it",
+        "layer_id": 2,
+        "layer_mapping": [],
+        "relations": [
+          {
+            "predicate": "label2 on water bottle2",
+            "object_tag": "water bottle2",
+            "idx": 16,
+            "confidence": 1.0
+          }
+        ]
+      },
+      {
+        "idx": 67,
+        "box": [
+          715.805,
+          260.947,
+          737.972,
+          291.869
+        ],
+        "score": 0.316,
+        "label": "shirt",
+        "attributes": "",
+        "layer_id": 1,
+        "layer_mapping": [],
+        "relations": []
+      },
+      {
+        "idx": 68,
+        "box": [
+          661.918,
+          229.646,
+          683.492,
+          259.002
+        ],
+        "score": 0.306,
+        "label": "shirt",
+        "attributes": "",
+        "layer_id": 1,
+        "layer_mapping": [],
+        "relations": []
+      },
+      {
+        "idx": 69,
+        "box": [
+          -0.004,
+          413.696,
+          7.907,
+          427.939
+        ],
+        "score": 0.302,
+        "label": "shoes",
+        "attributes": "Brown leather dress shoes",
+        "layer_id": 2,
+        "layer_mapping": [],
+        "relations": []
+      },
+      {
+        "idx": 70,
+        "box": [
+          0.079,
+          39.753,
+          205.206,
+          139.178
+        ],
+        "score": 0.686,
+        "label": "poster",
+        "attributes": "",
+        "layer_id": 1,
+        "layer_mapping": [],
+        "relations": []
+      }
+    ]
+  },
+  {
+    "image_path": "/home/liuyz/hsgg/frames/frame_000005.png",
+    "objects": [
+      {
+        "idx": 0,
+        "box": [
+          283.108,
+          311.52,
+          344.489,
+          454.145
+        ],
+        "score": 0.875,
+        "label": "man",
+        "attributes": "Basketball player wearing yellow jersey and shorts",
+        "layer_id": 1,
+        "layer_mapping": [
+          {
+            "idx": 14,
+            "tag": "pants1"
+          },
+          {
+            "idx": 12,
+            "tag": "t - shirt1"
+          }
+        ],
+        "relations": [
+          {
+            "predicate": "man1 aim at basketball hoop",
+            "object_tag": "basketball hoop",
+            "idx": 2,
+            "confidence": 1.0
+          },
+          {
+            "predicate": "man1 face away from man3",
+            "object_tag": "man3",
+            "idx": 5,
+            "confidence": 1.0
+          },
+          {
+            "predicate": "poster1 behind man1",
+            "object_tag": "poster1",
+            "idx": 8,
+            "confidence": 1.0
+          },
+          {
+            "predicate": "banner behind man1",
+            "object_tag": "banner",
+            "idx": 9,
+            "confidence": 1.0
+          },
+          {
+            "predicate": "man1 walk on floor",
+            "object_tag": "floor",
+            "idx": 11,
+            "confidence": 1.0
+          }
+        ]
+      },
+      {
+        "idx": 1,
+        "box": [
+          240.745,
+          252.661,
+          279.769,
+          312.318
+        ],
+        "score": 0.796,
+        "label": "window",
+        "attributes": "Metal barred window",
+        "layer_id": 1,
+        "layer_mapping": [],
+        "relations": [
+          {
+            "predicate": "window1 showing man2",
+            "object_tag": "man2",
+            "idx": 3,
+            "confidence": 1.0
+          },
+          {
+            "predicate": "window1 showing man4",
+            "object_tag": "man4",
+            "idx": 6,
+            "confidence": 1.0
+          },
+          {
+            "predicate": "window1 beside poster2",
+            "object_tag": "poster2",
+            "idx": 10,
+            "confidence": 0.5
+          }
+        ]
+      },
+      {
+        "idx": 2,
+        "box": [
+          423.703,
+          184.515,
+          469.793,
+          227.732
+        ],
+        "score": 0.718,
+        "label": "basketball hoop",
+        "attributes": "Basketball hoop with black backboard and white writing",
+        "layer_id": 1,
+        "layer_mapping": [
+          {
+            "idx": 18,
+            "tag": "backboard"
+          }
+        ],
+        "relations": [
+          {
+            "predicate": "man3 stand near basketball hoop",
+            "object_tag": "man3",
+            "idx": 5,
+            "confidence": 1.0
+          },
+          {
+            "predicate": "basketball hoop near poster1",
+            "object_tag": "poster1",
+            "idx": 8,
+            "confidence": 1.0
+          },
+          {
+            "predicate": "basketball hoop above banner",
+            "object_tag": "banner",
+            "idx": 9,
+            "confidence": 1.0
+          },
+          {
+            "predicate": "floor below basketball hoop",
+            "object_tag": "floor",
+            "idx": 11,
+            "confidence": 1.0
+          },
+          {
+            "predicate": "basketball hoop attached to backboard",
+            "object_tag": "backboard",
+            "idx": 18,
+            "confidence": 1.0
+          },
+          {
+            "predicate": "man1 aim at basketball hoop",
+            "object_tag": "man1",
+            "idx": 0,
+            "confidence": 1.0
+          }
+        ]
+      },
+      {
+        "idx": 3,
+        "box": [
+          92.462,
+          299.519,
+          133.612,
+          362.864
+        ],
+        "score": 0.718,
+        "label": "man",
+        "attributes": "Man wearing yellow shirt and blue shoes",
+        "layer_id": 1,
+        "layer_mapping": [
+          {
+            "idx": 16,
+            "tag": "pants2"
+          },
+          {
+            "idx": 22,
+            "tag": "t - shirt3"
+          }
+        ],
+        "relations": [
+          {
+            "predicate": "man4 beside man2",
+            "object_tag": "man4",
+            "idx": 6,
+            "confidence": 1.0
+          },
+          {
+            "predicate": "man2 sit near poster2",
+            "object_tag": "poster2",
+            "idx": 10,
+            "confidence": 1.0
+          },
+          {
+            "predicate": "pants2 worn by man2",
+            "object_tag": "pants2",
+            "idx": 16,
+            "confidence": 1.0
+          },
+          {
+            "predicate": "t - shirt3 worn by man2",
+            "object_tag": "t - shirt3",
+            "idx": 22,
+            "confidence": 1.0
+          },
+          {
+            "predicate": "window1 showing man2",
+            "object_tag": "window1",
+            "idx": 1,
+            "confidence": 1.0
+          }
+        ]
+      },
+      {
+        "idx": 4,
+        "box": [
+          178.179,
+          258.289,
+          210.901,
+          349.399
+        ],
+        "score": 0.688,
+        "label": "door",
+        "attributes": "Black metal door with window",
+        "layer_id": 1,
+        "layer_mapping": [],
+        "relations": [
+          {
+            "predicate": "man4 stands before door",
+            "object_tag": "man4",
+            "idx": 6,
+            "confidence": 1.0
+          },
+          {
+            "predicate": "poster2 beside door",
+            "object_tag": "poster2",
+            "idx": 10,
+            "confidence": 1.0
+          }
+        ]
+      },
+      {
+        "idx": 5,
+        "box": [
+          0.125,
+          319.718,
+          34.911,
+          439.415
+        ],
+        "score": 0.582,
+        "label": "man",
+        "attributes": "Man wearing yellow jersey and white shorts",
+        "layer_id": 1,
+        "layer_mapping": [
+          {
+            "idx": 20,
+            "tag": "pants3"
+          },
+          {
+            "idx": 21,
+            "tag": "t - shirt2"
+          }
+        ],
+        "relations": [
+          {
+            "predicate": "poster1 being observed by man3",
+            "object_tag": "poster1",
+            "idx": 8,
+            "confidence": 1.0
+          },
+          {
+            "predicate": "man3 wear jersey with number from banner",
+            "object_tag": "banner",
+            "idx": 9,
+            "confidence": 1.0
+          },
+          {
+            "predicate": "floor beneath man3",
+            "object_tag": "floor",
+            "idx": 11,
+            "confidence": 1.0
+          },
+          {
+            "predicate": "pants3 worn by man3",
+            "object_tag": "pants3",
+            "idx": 20,
+            "confidence": 1.0
+          },
+          {
+            "predicate": "man1 face away from man3",
+            "object_tag": "man1",
+            "idx": 0,
+            "confidence": 1.0
+          },
+          {
+            "predicate": "man3 stand near basketball hoop",
+            "object_tag": "basketball hoop",
+            "idx": 2,
+            "confidence": 1.0
+          }
+        ]
+      },
+      {
+        "idx": 6,
+        "box": [
+          54.174,
+          192.269,
+          126.204,
+          325.77
+        ],
+        "score": 0.541,
+        "label": "man",
+        "attributes": "Man in red shirt holding yellow object",
+        "layer_id": 1,
+        "layer_mapping": [],
+        "relations": [
+          {
+            "predicate": "man4 standing before poster2",
+            "object_tag": "poster2",
+            "idx": 10,
+            "confidence": 1.0
+          },
+          {
+            "predicate": "window1 showing man4",
+            "object_tag": "window1",
+            "idx": 1,
+            "confidence": 1.0
+          },
+          {
+            "predicate": "man4 beside man2",
+            "object_tag": "man2",
+            "idx": 3,
+            "confidence": 1.0
+          },
+          {
+            "predicate": "man4 stands before door",
+            "object_tag": "door",
+            "idx": 4,
+            "confidence": 1.0
+          }
+        ]
+      },
+      {
+        "idx": 7,
+        "box": [
+          356.049,
+          49.332,
+          549.086,
+          127.386
+        ],
+        "score": 0.498,
+        "label": "window",
+        "attributes": "Window with reflection of trees and sky",
+        "layer_id": 1,
+        "layer_mapping": [],
+        "relations": []
+      },
+      {
+        "idx": 8,
+        "box": [
+          401.828,
+          140.926,
+          506.891,
+          213.942
+        ],
+        "score": 0.397,
+        "label": "poster",
+        "attributes": "Red paper with white writing and logo",
+        "layer_id": 1,
+        "layer_mapping": [
+          {
+            "idx": 15,
+            "tag": "paper"
+          }
+        ],
+        "relations": [
+          {
+            "predicate": "poster1 below banner",
+            "object_tag": "banner",
+            "idx": 9,
+            "confidence": 1.0
+          },
+          {
+            "predicate": "floor below poster1",
+            "object_tag": "floor",
+            "idx": 11,
+            "confidence": 1.0
+          },
+          {
+            "predicate": "poster1 above paper",
+            "object_tag": "paper",
+            "idx": 15,
+            "confidence": 1.0
+          },
+          {
+            "predicate": "poster1 behind man1",
+            "object_tag": "man1",
+            "idx": 0,
+            "confidence": 1.0
+          },
+          {
+            "predicate": "basketball hoop near poster1",
+            "object_tag": "basketball hoop",
+            "idx": 2,
+            "confidence": 1.0
+          },
+          {
+            "predicate": "poster1 being observed by man3",
+            "object_tag": "man3",
+            "idx": 5,
+            "confidence": 1.0
+          }
+        ]
+      },
+      {
+        "idx": 9,
+        "box": [
+          310.866,
+          160.252,
+          556.561,
+          364.672
+        ],
+        "score": 0.385,
+        "label": "banner",
+        "attributes": "Black banner with white and red writing",
+        "layer_id": 1,
+        "layer_mapping": [],
+        "relations": [
+          {
+            "predicate": "floor below banner",
+            "object_tag": "floor",
+            "idx": 11,
+            "confidence": 1.0
+          },
+          {
+            "predicate": "banner behind man1",
+            "object_tag": "man1",
+            "idx": 0,
+            "confidence": 1.0
+          },
+          {
+            "predicate": "basketball hoop above banner",
+            "object_tag": "basketball hoop",
+            "idx": 2,
+            "confidence": 1.0
+          },
+          {
+            "predicate": "man3 wear jersey with number from banner",
+            "object_tag": "man3",
+            "idx": 5,
+            "confidence": 1.0
+          },
+          {
+            "predicate": "poster1 below banner",
+            "object_tag": "poster1",
+            "idx": 8,
+            "confidence": 1.0
+          }
+        ]
+      },
+      {
+        "idx": 10,
+        "box": [
+          0.332,
+          39.316,
+          205.288,
+          139.507
+        ],
+        "score": 0.383,
+        "label": "poster",
+        "attributes": "Poster of astronaut drinking water",
+        "layer_id": 1,
+        "layer_mapping": [],
+        "relations": [
+          {
+            "predicate": "window1 beside poster2",
+            "object_tag": "window1",
+            "idx": 1,
+            "confidence": 0.5
+          },
+          {
+            "predicate": "man2 sit near poster2",
+            "object_tag": "man2",
+            "idx": 3,
+            "confidence": 1.0
+          },
+          {
+            "predicate": "poster2 beside door",
+            "object_tag": "door",
+            "idx": 4,
+            "confidence": 1.0
+          },
+          {
+            "predicate": "man4 standing before poster2",
+            "object_tag": "man4",
+            "idx": 6,
+            "confidence": 1.0
+          }
+        ]
+      },
+      {
+        "idx": 11,
+        "box": [
+          1.172,
+          347.246,
+          956.153,
+          542.19
+        ],
+        "score": 0.319,
+        "label": "floor",
+        "attributes": "Wooden basketball court with orange and black markings",
+        "layer_id": 1,
+        "layer_mapping": [],
+        "relations": [
+          {
+            "predicate": "man1 walk on floor",
+            "object_tag": "man1",
+            "idx": 0,
+            "confidence": 1.0
+          },
+          {
+            "predicate": "floor below basketball hoop",
+            "object_tag": "basketball hoop",
+            "idx": 2,
+            "confidence": 1.0
+          },
+          {
+            "predicate": "floor beneath man3",
+            "object_tag": "man3",
+            "idx": 5,
+            "confidence": 1.0
+          },
+          {
+            "predicate": "floor below poster1",
+            "object_tag": "poster1",
+            "idx": 8,
+            "confidence": 1.0
+          },
+          {
+            "predicate": "floor below banner",
+            "object_tag": "banner",
+            "idx": 9,
+            "confidence": 1.0
+          }
+        ]
+      },
+      {
+        "idx": 12,
+        "box": [
+          295.919,
+          329.948,
+          333.452,
+          392.32
+        ],
+        "score": 0.559,
+        "label": "t - shirt",
+        "attributes": "Yellow basketball jersey with number 62",
+        "layer_id": 2,
+        "layer_mapping": [],
+        "relations": []
+      },
+      {
+        "idx": 13,
+        "box": [
+          595.571,
+          0.358,
+          619.901,
+          364.028
+        ],
+        "score": 0.476,
+        "label": "pole",
+        "attributes": "",
+        "layer_id": 1,
+        "layer_mapping": [],
+        "relations": []
+      },
+      {
+        "idx": 14,
+        "box": [
+          300.201,
+          389.154,
+          332.125,
+          414.045
+        ],
+        "score": 0.469,
+        "label": "pants",
+        "attributes": "Yellow basketball shorts",
+        "layer_id": 2,
+        "layer_mapping": [
+          {
+            "idx": 23,
+            "tag": "socks1"
+          },
+          {
+            "idx": 24,
+            "tag": "socks2"
+          }
+        ],
+        "relations": [
+          {
+            "predicate": "socks1 worn by pants1",
+            "object_tag": "socks1",
+            "idx": 23,
+            "confidence": 1.0
+          },
+          {
+            "predicate": "pants1 paired with socks2",
+            "object_tag": "socks2",
+            "idx": 24,
+            "confidence": 1.0
+          }
+        ]
+      },
+      {
+        "idx": 15,
+        "box": [
+          402.032,
+          141.249,
+          506.456,
+          214.429
+        ],
+        "score": 0.459,
+        "label": "paper",
+        "attributes": "Red paper with white writing and logo",
+        "layer_id": 2,
+        "layer_mapping": [],
+        "relations": [
+          {
+            "predicate": "poster1 above paper",
+            "object_tag": "poster1",
+            "idx": 8,
+            "confidence": 1.0
+          }
+        ]
+      },
+      {
+        "idx": 16,
+        "box": [
+          95.352,
+          330.126,
+          125.024,
+          349.371
+        ],
+        "score": 0.415,
+        "label": "pants",
+        "attributes": "Red shorts with white stripes down sides",
+        "layer_id": 2,
+        "layer_mapping": [],
+        "relations": [
+          {
+            "predicate": "pants2 worn by man2",
+            "object_tag": "man2",
+            "idx": 3,
+            "confidence": 1.0
+          }
+        ]
+      },
+      {
+        "idx": 17,
+        "box": [
+          558.264,
+          158.319,
+          569.894,
+          363.554
+        ],
+        "score": 0.363,
+        "label": "pole",
+        "attributes": "",
+        "layer_id": 1,
+        "layer_mapping": [],
+        "relations": []
+      },
+      {
+        "idx": 18,
+        "box": [
+          311.362,
+          159.39,
+          556.065,
+          365.307
+        ],
+        "score": 0.346,
+        "label": "backboard",
+        "attributes": "Black backboard with white writing",
+        "layer_id": 2,
+        "layer_mapping": [],
+        "relations": [
+          {
+            "predicate": "basketball hoop attached to backboard",
+            "object_tag": "basketball hoop",
+            "idx": 2,
+            "confidence": 1.0
+          }
+        ]
+      },
+      {
+        "idx": 19,
+        "box": [
+          655.348,
+          218.702,
+          664.338,
+          367.348
+        ],
+        "score": 0.34,
+        "label": "pole",
+        "attributes": "",
+        "layer_id": 1,
+        "layer_mapping": [],
+        "relations": []
+      },
+      {
+        "idx": 20,
+        "box": [
+          2.041,
+          383.268,
+          23.636,
+          402.799
+        ],
+        "score": 0.333,
+        "label": "pants",
+        "attributes": "White basketball shorts",
+        "layer_id": 2,
+        "layer_mapping": [],
+        "relations": [
+          {
+            "predicate": "pants3 worn by man3",
+            "object_tag": "man3",
+            "idx": 5,
+            "confidence": 1.0
+          }
+        ]
+      },
+      {
+        "idx": 21,
+        "box": [
+          0.596,
+          333.939,
+          27.675,
+          384.68
+        ],
+        "score": 0.314,
+        "label": "t - shirt",
+        "attributes": "Yellow jersey with number 20",
+        "layer_id": 2,
+        "layer_mapping": [],
+        "relations": []
+      },
+      {
+        "idx": 22,
+        "box": [
+          93.619,
+          307.826,
+          113.183,
+          341.741
+        ],
+        "score": 0.309,
+        "label": "t - shirt",
+        "attributes": "Red and white basketball jersey",
+        "layer_id": 2,
+        "layer_mapping": [],
+        "relations": [
+          {
+            "predicate": "t - shirt3 worn by man2",
+            "object_tag": "man2",
+            "idx": 3,
+            "confidence": 1.0
+          }
+        ]
+      },
+      {
+        "idx": 23,
+        "box": [
+          316.884,
+          412.603,
+          326.924,
+          435.382
+        ],
+        "score": 0.596,
+        "label": "socks",
+        "attributes": "Black athletic socks",
+        "layer_id": 3,
+        "layer_mapping": [],
+        "relations": [
+          {
+            "predicate": "socks1 worn by pants1",
+            "object_tag": "pants1",
+            "idx": 14,
+            "confidence": 1.0
+          }
+        ]
+      },
+      {
+        "idx": 24,
+        "box": [
+          304.663,
+          407.178,
+          313.137,
+          428.674
+        ],
+        "score": 0.59,
+        "label": "socks",
+        "attributes": "Black athletic socks",
+        "layer_id": 3,
+        "layer_mapping": [],
+        "relations": [
+          {
+            "predicate": "pants1 paired with socks2",
+            "object_tag": "pants1",
+            "idx": 14,
+            "confidence": 1.0
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "image_path": "/home/liuyz/hsgg/frames/frame_000010.png",
+    "objects": [
+      {
+        "idx": 0,
+        "box": [
+          281.913,
+          310.31,
+          345.814,
+          454.846
+        ],
+        "score": 0.815,
+        "label": "man",
+        "attributes": "Basketball player wearing yellow jersey with number 62",
+        "layer_id": 1,
+        "layer_mapping": [
+          {
+            "idx": 49,
+            "tag": "t - shirt2"
+          }
+        ],
+        "relations": [
+          {
+            "predicate": "man1 within court lines1",
+            "object_tag": "court lines1",
+            "idx": 23,
+            "confidence": 1.0
+          },
+          {
+            "predicate": "audience watch man1",
+            "object_tag": "audience",
+            "idx": 26,
+            "confidence": 1.0
+          },
+          {
+            "predicate": "man1 below fire escape platform",
+            "object_tag": "fire escape platform",
+            "idx": 27,
+            "confidence": 1.0
+          },
+          {
+            "predicate": "banner behind man1",
+            "object_tag": "banner",
+            "idx": 17,
+            "confidence": 1.0
+          },
+          {
+            "predicate": "man1 within boundaries of court lines2",
+            "object_tag": "court lines2",
+            "idx": 32,
+            "confidence": 1.0
+          },
+          {
+            "predicate": "advertisement2 behind man1",
+            "object_tag": "advertisement2",
+            "idx": 18,
+            "confidence": 1.0
+          },
+          {
+            "predicate": "logo on man1 jersey",
+            "object_tag": "logo",
+            "idx": 22,
+            "confidence": 0.5
+          }
+        ]
+      },
+      {
+        "idx": 1,
+        "box": [
+          241.05,
+          252.921,
+          279.503,
+          312.272
+        ],
+        "score": 0.809,
+        "label": "window",
+        "attributes": "Metal barred window",
+        "layer_id": 1,
+        "layer_mapping": [],
+        "relations": []
+      },
+      {
+        "idx": 2,
+        "box": [
+          895.114,
+          27.1,
+          945.71,
+          136.47
+        ],
+        "score": 0.704,
+        "label": "bottle",
+        "attributes": "White plastic bottle with black writing",
+        "layer_id": 1,
+        "layer_mapping": [],
+        "relations": [
+          {
+            "predicate": "bottle1 near fire escape roof",
+            "object_tag": "fire escape roof",
+            "idx": 20,
+            "confidence": 1.0
+          },
+          {
+            "predicate": "bottle1 hanging from ceiling",
+            "object_tag": "ceiling",
+            "idx": 36,
+            "confidence": 1.0
+          },
+          {
+            "predicate": "bottle1 displayed close to fire escape platform",
+            "object_tag": "fire escape platform",
+            "idx": 27,
+            "confidence": 1.0
+          },
+          {
+            "predicate": "advertisement3 features bottle1",
+            "object_tag": "advertisement3",
+            "idx": 30,
+            "confidence": 1.0
+          },
+          {
+            "predicate": "bottle1 reflected in window2",
+            "object_tag": "window2",
+            "idx": 16,
+            "confidence": 1.0
+          }
+        ]
+      },
+      {
+        "idx": 3,
+        "box": [
+          425.715,
+          184.273,
+          469.777,
+          226.232
+        ],
+        "score": 0.681,
+        "label": "basketball hoop",
+        "attributes": "Basketball hoop with white backboard and black lettering",
+        "layer_id": 1,
+        "layer_mapping": [
+          {
+            "idx": 46,
+            "tag": "backboard"
+          }
+        ],
+        "relations": []
+      },
+      {
+        "idx": 4,
+        "box": [
+          93.195,
+          299.498,
+          133.629,
+          362.476
+        ],
+        "score": 0.663,
+        "label": "player",
+        "attributes": "",
+        "layer_id": 1,
+        "layer_mapping": [],
+        "relations": []
+      },
+      {
+        "idx": 5,
+        "box": [
+          0.083,
+          320.784,
+          29.745,
+          439.009
+        ],
+        "score": 0.663,
+        "label": "player",
+        "attributes": "",
+        "layer_id": 1,
+        "layer_mapping": [],
+        "relations": []
+      },
+      {
+        "idx": 6,
+        "box": [
+          178.148,
+          258.362,
+          210.546,
+          348.931
+        ],
+        "score": 0.63,
+        "label": "door",
+        "attributes": "Black metal door with window",
+        "layer_id": 1,
+        "layer_mapping": [],
+        "relations": [
+          {
+            "predicate": "door1 under ceiling",
+            "object_tag": "ceiling",
+            "idx": 36,
+            "confidence": 1.0
+          },
+          {
+            "predicate": "door1 next to advertisement3",
+            "object_tag": "advertisement3",
+            "idx": 30,
+            "confidence": 1.0
+          },
+          {
+            "predicate": "door1 adjacent to fire escape platform",
+            "object_tag": "fire escape platform",
+            "idx": 27,
+            "confidence": 1.0
+          },
+          {
+            "predicate": "advertisement1 is adjacent to door1",
+            "object_tag": "advertisement1",
+            "idx": 8,
+            "confidence": 1.0
+          },
+          {
+            "predicate": "door2 is adjacent to door1",
+            "object_tag": "door2",
+            "idx": 29,
+            "confidence": 1.0
+          },
+          {
+            "predicate": "man2 is close to door1",
+            "object_tag": "man2",
+            "idx": 15,
+            "confidence": 1.0
+          }
+        ]
+      },
+      {
+        "idx": 7,
+        "box": [
+          304.673,
+          389.087,
+          335.069,
+          411.003
+        ],
+        "score": 0.629,
+        "label": "shorts",
+        "attributes": "Black shorts",
+        "layer_id": 1,
+        "layer_mapping": [],
+        "relations": []
+      },
+      {
+        "idx": 8,
+        "box": [
+          0.164,
+          39.516,
+          205.076,
+          139.824
+        ],
+        "score": 0.628,
+        "label": "advertisement",
+        "attributes": "Red banner with white text",
+        "layer_id": 1,
+        "layer_mapping": [],
+        "relations": [
+          {
+            "predicate": "advertisement1 beside advertisement3",
+            "object_tag": "advertisement3",
+            "idx": 30,
+            "confidence": 1.0
+          },
+          {
+            "predicate": "advertisement1 adjacent to ceiling",
+            "object_tag": "ceiling",
+            "idx": 36,
+            "confidence": 1.0
+          },
+          {
+            "predicate": "advertisement1 on same building as fire escape platform",
+            "object_tag": "fire escape platform",
+            "idx": 27,
+            "confidence": 1.0
+          },
+          {
+            "predicate": "seating below advertisement1",
+            "object_tag": "seating",
+            "idx": 24,
+            "confidence": 1.0
+          },
+          {
+            "predicate": "door2 below advertisement1",
+            "object_tag": "door2",
+            "idx": 29,
+            "confidence": 1.0
+          },
+          {
+            "predicate": "advertisement1 over fire escape roof",
+            "object_tag": "fire escape roof",
+            "idx": 20,
+            "confidence": 1.0
+          },
+          {
+            "predicate": "man2 standing in front of advertisement1",
+            "object_tag": "man2",
+            "idx": 15,
+            "confidence": 1.0
+          },
+          {
+            "predicate": "advertisement1 above jersey4",
+            "object_tag": "jersey4",
+            "idx": 21,
+            "confidence": 1.0
+          },
+          {
+            "predicate": "window2 shows advertisement1",
+            "object_tag": "window2",
+            "idx": 16,
+            "confidence": 1.0
+          },
+          {
+            "predicate": "advertisement1 is adjacent to door1",
+            "object_tag": "door1",
+            "idx": 6,
+            "confidence": 1.0
+          }
+        ]
+      },
+      {
+        "idx": 9,
+        "box": [
+          301.936,
+          330.034,
+          333.979,
+          392.396
+        ],
+        "score": 0.626,
+        "label": "jersey",
+        "attributes": "Jersey with red number 62",
+        "layer_id": 1,
+        "layer_mapping": [
+          {
+            "idx": 38,
+            "tag": "number1"
+          }
+        ],
+        "relations": []
+      },
+      {
+        "idx": 10,
+        "box": [
+          157.523,
+          63.415,
+          194.958,
+          152.133
+        ],
+        "score": 0.6,
+        "label": "bottle",
+        "attributes": "White plastic bottle with black writing",
+        "layer_id": 1,
+        "layer_mapping": [],
+        "relations": [
+          {
+            "predicate": "advertisement3 features bottle2",
+            "object_tag": "advertisement3",
+            "idx": 30,
+            "confidence": 1.0
+          },
+          {
+            "predicate": "bottle2 hangs from ceiling",
+            "object_tag": "ceiling",
+            "idx": 36,
+            "confidence": 1.0
+          },
+          {
+            "predicate": "bottle2 is positioned over door2",
+            "object_tag": "door2",
+            "idx": 29,
+            "confidence": 1.0
+          },
+          {
+            "predicate": "bottle2 on wall close to fire escape platform",
+            "object_tag": "fire escape platform",
+            "idx": 27,
+            "confidence": 1.0
+          },
+          {
+            "predicate": "window2 reflects bottle2",
+            "object_tag": "window2",
+            "idx": 16,
+            "confidence": 1.0
+          },
+          {
+            "predicate": "bottle2 is located beneath fire escape roof",
+            "object_tag": "fire escape roof",
+            "idx": 20,
+            "confidence": 1.0
+          }
+        ]
+      },
+      {
+        "idx": 11,
+        "box": [
+          0.102,
+          382.085,
+          17.313,
+          401.863
+        ],
+        "score": 0.593,
+        "label": "shorts",
+        "attributes": "Orange basketball shorts",
+        "layer_id": 1,
+        "layer_mapping": [],
+        "relations": []
+      },
+      {
+        "idx": 12,
+        "box": [
+          0.076,
+          333.131,
+          18.206,
+          384.376
+        ],
+        "score": 0.591,
+        "label": "jersey",
+        "attributes": "Jersey with number 00 in yellow and black",
+        "layer_id": 1,
+        "layer_mapping": [
+          {
+            "idx": 44,
+            "tag": "number3"
+          }
+        ],
+        "relations": []
+      },
+      {
+        "idx": 13,
+        "box": [
+          93.99,
+          307.957,
+          112.697,
+          337.608
+        ],
+        "score": 0.572,
+        "label": "jersey",
+        "attributes": "Jersey with number 14 on it",
+        "layer_id": 1,
+        "layer_mapping": [],
+        "relations": []
+      },
+      {
+        "idx": 14,
+        "box": [
+          316.08,
+          434.922,
+          333.367,
+          455.151
+        ],
+        "score": 0.568,
+        "label": "shoes",
+        "attributes": "White sneakers with black stripes",
+        "layer_id": 1,
+        "layer_mapping": [],
+        "relations": []
+      },
+      {
+        "idx": 15,
+        "box": [
+          54.49,
+          191.972,
+          125.698,
+          325.62
+        ],
+        "score": 0.547,
+        "label": "man",
+        "attributes": "Man in red jersey",
+        "layer_id": 1,
+        "layer_mapping": [],
+        "relations": [
+          {
+            "predicate": "ceiling above man2",
+            "object_tag": "ceiling",
+            "idx": 36,
+            "confidence": 1.0
+          },
+          {
+            "predicate": "advertisement3 above man2",
+            "object_tag": "advertisement3",
+            "idx": 30,
+            "confidence": 1.0
+          },
+          {
+            "predicate": "fire escape platform above man2",
+            "object_tag": "fire escape platform",
+            "idx": 27,
+            "confidence": 1.0
+          },
+          {
+            "predicate": "fire escape roof above man2",
+            "object_tag": "fire escape roof",
+            "idx": 20,
+            "confidence": 1.0
+          },
+          {
+            "predicate": "man2 standing in front of advertisement1",
+            "object_tag": "advertisement1",
+            "idx": 8,
+            "confidence": 1.0
+          },
+          {
+            "predicate": "man2 is close to door1",
+            "object_tag": "door1",
+            "idx": 6,
+            "confidence": 1.0
+          }
+        ]
+      },
+      {
+        "idx": 16,
+        "box": [
+          356.206,
+          49.403,
+          548.656,
+          127.023
+        ],
+        "score": 0.542,
+        "label": "window",
+        "attributes": "Window on side of bus",
+        "layer_id": 1,
+        "layer_mapping": [],
+        "relations": [
+          {
+            "predicate": "window2 adjacent to advertisement3",
+            "object_tag": "advertisement3",
+            "idx": 30,
+            "confidence": 1.0
+          },
+          {
+            "predicate": "window2 below ceiling",
+            "object_tag": "ceiling",
+            "idx": 36,
+            "confidence": 0.5
+          },
+          {
+            "predicate": "window2 adjacent to fire escape roof",
+            "object_tag": "fire escape roof",
+            "idx": 20,
+            "confidence": 1.0
+          },
+          {
+            "predicate": "fire escape platform below window2",
+            "object_tag": "fire escape platform",
+            "idx": 27,
+            "confidence": 1.0
+          },
+          {
+            "predicate": "bottle1 reflected in window2",
+            "object_tag": "bottle1",
+            "idx": 2,
+            "confidence": 1.0
+          },
+          {
+            "predicate": "window2 shows advertisement1",
+            "object_tag": "advertisement1",
+            "idx": 8,
+            "confidence": 1.0
+          },
+          {
+            "predicate": "window2 reflects bottle2",
+            "object_tag": "bottle2",
+            "idx": 10,
+            "confidence": 1.0
+          }
+        ]
+      },
+      {
+        "idx": 17,
+        "box": [
+          310.986,
+          158.738,
+          556.19,
+          364.439
+        ],
+        "score": 0.504,
+        "label": "banner",
+        "attributes": "Black banner with white and red writing and design",
+        "layer_id": 1,
+        "layer_mapping": [],
+        "relations": [
+          {
+            "predicate": "banner adjacent to court lines1",
+            "object_tag": "court lines1",
+            "idx": 23,
+            "confidence": 1.0
+          },
+          {
+            "predicate": "court lines2 below banner",
+            "object_tag": "court lines2",
+            "idx": 32,
+            "confidence": 1.0
+          },
+          {
+            "predicate": "banner behind audience",
+            "object_tag": "audience",
+            "idx": 26,
+            "confidence": 0.5
+          },
+          {
+            "predicate": "fire escape platform below banner",
+            "object_tag": "fire escape platform",
+            "idx": 27,
+            "confidence": 1.0
+          },
+          {
+            "predicate": "banner adjacent to advertisement2",
+            "object_tag": "advertisement2",
+            "idx": 18,
+            "confidence": 1.0
+          },
+          {
+            "predicate": "logo below banner",
+            "object_tag": "logo",
+            "idx": 22,
+            "confidence": 0.5
+          },
+          {
+            "predicate": "banner behind man1",
+            "object_tag": "man1",
+            "idx": 0,
+            "confidence": 1.0
+          }
+        ]
+      },
+      {
+        "idx": 18,
+        "box": [
+          402.209,
+          141.139,
+          506.453,
+          213.689
+        ],
+        "score": 0.487,
+        "label": "advertisement",
+        "attributes": "Red banner with white writing and logo",
+        "layer_id": 1,
+        "layer_mapping": [],
+        "relations": [
+          {
+            "predicate": "court lines1 below advertisement2",
+            "object_tag": "court lines1",
+            "idx": 23,
+            "confidence": 0.5
+          },
+          {
+            "predicate": "court lines2 below advertisement2",
+            "object_tag": "court lines2",
+            "idx": 32,
+            "confidence": 1.0
+          },
+          {
+            "predicate": "advertisement2 beside audience",
+            "object_tag": "audience",
+            "idx": 26,
+            "confidence": 1.0
+          },
+          {
+            "predicate": "advertisement2 adjacent to logo",
+            "object_tag": "logo",
+            "idx": 22,
+            "confidence": 1.0
+          },
+          {
+            "predicate": "advertisement2 attached to fire escape platform",
+            "object_tag": "fire escape platform",
+            "idx": 27,
+            "confidence": 1.0
+          },
+          {
+            "predicate": "advertisement2 behind man1",
+            "object_tag": "man1",
+            "idx": 0,
+            "confidence": 1.0
+          },
+          {
+            "predicate": "banner adjacent to advertisement2",
+            "object_tag": "banner",
+            "idx": 17,
+            "confidence": 1.0
+          }
+        ]
+      },
+      {
+        "idx": 19,
+        "box": [
+          8.41,
+          424.381,
+          21.753,
+          438.711
+        ],
+        "score": 0.484,
+        "label": "shoes",
+        "attributes": "Brown leather shoes",
+        "layer_id": 1,
+        "layer_mapping": [],
+        "relations": []
+      },
+      {
+        "idx": 20,
+        "box": [
+          138.61,
+          214.684,
+          313.98,
+          242.964
+        ],
+        "score": 0.458,
+        "label": "fire escape roof",
+        "attributes": "Metal railing on top of building",
+        "layer_id": 1,
+        "layer_mapping": [],
+        "relations": [
+          {
+            "predicate": "fire escape roof below ceiling",
+            "object_tag": "ceiling",
+            "idx": 36,
+            "confidence": 1.0
+          },
+          {
+            "predicate": "fire escape roof adjacent to advertisement3",
+            "object_tag": "advertisement3",
+            "idx": 30,
+            "confidence": 1.0
+          },
+          {
+            "predicate": "fire escape roof adjacent to door2",
+            "object_tag": "door2",
+            "idx": 29,
+            "confidence": 1.0
+          },
+          {
+            "predicate": "fire escape platform below fire escape roof",
+            "object_tag": "fire escape platform",
+            "idx": 27,
+            "confidence": 1.0
+          },
+          {
+            "predicate": "fire escape roof over seating",
+            "object_tag": "seating",
+            "idx": 24,
+            "confidence": 1.0
+          },
+          {
+            "predicate": "fire escape roof over jersey4",
+            "object_tag": "jersey4",
+            "idx": 21,
+            "confidence": 1.0
+          },
+          {
+            "predicate": "bottle1 near fire escape roof",
+            "object_tag": "bottle1",
+            "idx": 2,
+            "confidence": 1.0
+          },
+          {
+            "predicate": "window2 adjacent to fire escape roof",
+            "object_tag": "window2",
+            "idx": 16,
+            "confidence": 1.0
+          },
+          {
+            "predicate": "advertisement1 over fire escape roof",
+            "object_tag": "advertisement1",
+            "idx": 8,
+            "confidence": 1.0
+          },
+          {
+            "predicate": "fire escape roof above man2",
+            "object_tag": "man2",
+            "idx": 15,
+            "confidence": 1.0
+          },
+          {
+            "predicate": "bottle2 is located beneath fire escape roof",
+            "object_tag": "bottle2",
+            "idx": 10,
+            "confidence": 1.0
+          }
+        ]
+      },
+      {
+        "idx": 21,
+        "box": [
+          66.547,
+          229.802,
+          108.486,
+          319.915
+        ],
+        "score": 0.448,
+        "label": "jersey",
+        "attributes": "Jersey with number 7 in red on front",
+        "layer_id": 1,
+        "layer_mapping": [
+          {
+            "idx": 41,
+            "tag": "number2"
+          }
+        ],
+        "relations": [
+          {
+            "predicate": "jersey4 attached to ceiling",
+            "object_tag": "ceiling",
+            "idx": 36,
+            "confidence": 1.0
+          },
+          {
+            "predicate": "advertisement3 adjacent to jersey4",
+            "object_tag": "advertisement3",
+            "idx": 30,
+            "confidence": 1.0
+          },
+          {
+            "predicate": "jersey4 near fire escape platform",
+            "object_tag": "fire escape platform",
+            "idx": 27,
+            "confidence": 1.0
+          },
+          {
+            "predicate": "advertisement1 above jersey4",
+            "object_tag": "advertisement1",
+            "idx": 8,
+            "confidence": 1.0
+          },
+          {
+            "predicate": "fire escape roof over jersey4",
+            "object_tag": "fire escape roof",
+            "idx": 20,
+            "confidence": 1.0
+          }
+        ]
+      },
+      {
+        "idx": 22,
+        "box": [
+          350.709,
+          194.467,
+          498.538,
+          339.066
+        ],
+        "score": 0.44,
+        "label": "logo",
+        "attributes": "Ogl basketball league logo",
+        "layer_id": 1,
+        "layer_mapping": [],
+        "relations": [
+          {
+            "predicate": "logo adjacent to court lines1",
+            "object_tag": "court lines1",
+            "idx": 23,
+            "confidence": 1.0
+          },
+          {
+            "predicate": "court lines2 below logo",
+            "object_tag": "court lines2",
+            "idx": 32,
+            "confidence": 0.5
+          },
+          {
+            "predicate": "logo associated with audience",
+            "object_tag": "audience",
+            "idx": 26,
+            "confidence": 1.0
+          },
+          {
+            "predicate": "fire escape platform below logo",
+            "object_tag": "fire escape platform",
+            "idx": 27,
+            "confidence": 1.0
+          },
+          {
+            "predicate": "logo on man1 jersey",
+            "object_tag": "man1",
+            "idx": 0,
+            "confidence": 0.5
+          },
+          {
+            "predicate": "logo below banner",
+            "object_tag": "banner",
+            "idx": 17,
+            "confidence": 0.5
+          },
+          {
+            "predicate": "advertisement2 adjacent to logo",
+            "object_tag": "advertisement2",
+            "idx": 18,
+            "confidence": 1.0
+          }
+        ]
+      },
+      {
+        "idx": 23,
+        "box": [
+          40.619,
+          349.475,
+          910.743,
+          540.394
+        ],
+        "score": 0.424,
+        "label": "court lines",
+        "attributes": "Black and orange painted lines on basketball court",
+        "layer_id": 1,
+        "layer_mapping": [],
+        "relations": [
+          {
+            "predicate": "fire escape platform adjacent to court lines1",
+            "object_tag": "fire escape platform",
+            "idx": 27,
+            "confidence": 1.0
+          },
+          {
+            "predicate": "audience sit along court lines1",
+            "object_tag": "audience",
+            "idx": 26,
+            "confidence": 1.0
+          },
+          {
+            "predicate": "court lines1 intersecting with court lines2",
+            "object_tag": "court lines2",
+            "idx": 32,
+            "confidence": 1.0
+          },
+          {
+            "predicate": "court lines1 below advertisement2",
+            "object_tag": "advertisement2",
+            "idx": 18,
+            "confidence": 0.5
+          },
+          {
+            "predicate": "banner adjacent to court lines1",
+            "object_tag": "banner",
+            "idx": 17,
+            "confidence": 1.0
+          },
+          {
+            "predicate": "logo adjacent to court lines1",
+            "object_tag": "logo",
+            "idx": 22,
+            "confidence": 1.0
+          },
+          {
+            "predicate": "man1 within court lines1",
+            "object_tag": "man1",
+            "idx": 0,
+            "confidence": 1.0
+          }
+        ]
+      },
+      {
+        "idx": 24,
+        "box": [
+          44.474,
+          321.26,
+          130.316,
+          370.613
+        ],
+        "score": 0.418,
+        "label": "seating",
+        "attributes": "Red plastic chairs in a gym",
+        "layer_id": 1,
+        "layer_mapping": [],
+        "relations": [
+          {
+            "predicate": "seating below advertisement3",
+            "object_tag": "advertisement3",
+            "idx": 30,
+            "confidence": 1.0
+          },
+          {
+            "predicate": "fire escape platform above seating",
+            "object_tag": "fire escape platform",
+            "idx": 27,
+            "confidence": 1.0
+          },
+          {
+            "predicate": "seating adjacent to door2",
+            "object_tag": "door2",
+            "idx": 29,
+            "confidence": 1.0
+          },
+          {
+            "predicate": "seating below advertisement1",
+            "object_tag": "advertisement1",
+            "idx": 8,
+            "confidence": 1.0
+          },
+          {
+            "predicate": "fire escape roof over seating",
+            "object_tag": "fire escape roof",
+            "idx": 20,
+            "confidence": 1.0
+          }
+        ]
+      },
+      {
+        "idx": 25,
+        "box": [
+          96.014,
+          329.683,
+          123.29,
+          340.509
+        ],
+        "score": 0.398,
+        "label": "shorts",
+        "attributes": "White shorts with black stripes down sides",
+        "layer_id": 1,
+        "layer_mapping": [],
+        "relations": []
+      },
+      {
+        "idx": 26,
+        "box": [
+          562.928,
+          204.108,
+          957.582,
+          348.404
+        ],
+        "score": 0.392,
+        "label": "audience",
+        "attributes": "Audience watching basketball game",
+        "layer_id": 1,
+        "layer_mapping": [],
+        "relations": [
+          {
+            "predicate": "audience stand before court lines2",
+            "object_tag": "court lines2",
+            "idx": 32,
+            "confidence": 1.0
+          },
+          {
+            "predicate": "audience below fire escape platform",
+            "object_tag": "fire escape platform",
+            "idx": 27,
+            "confidence": 1.0
+          },
+          {
+            "predicate": "audience sit along court lines1",
+            "object_tag": "court lines1",
+            "idx": 23,
+            "confidence": 1.0
+          },
+          {
+            "predicate": "audience watch man1",
+            "object_tag": "man1",
+            "idx": 0,
+            "confidence": 1.0
+          },
+          {
+            "predicate": "banner behind audience",
+            "object_tag": "banner",
+            "idx": 17,
+            "confidence": 0.5
+          },
+          {
+            "predicate": "advertisement2 beside audience",
+            "object_tag": "advertisement2",
+            "idx": 18,
+            "confidence": 1.0
+          },
+          {
+            "predicate": "logo associated with audience",
+            "object_tag": "logo",
+            "idx": 22,
+            "confidence": 1.0
+          }
+        ]
+      },
+      {
+        "idx": 27,
+        "box": [
+          310.394,
+          110.939,
+          595.563,
+          173.134
+        ],
+        "score": 0.384,
+        "label": "fire escape platform",
+        "attributes": "Red metal fire escape platform attached to building",
+        "layer_id": 1,
+        "layer_mapping": [
+          {
+            "idx": 45,
+            "tag": "railing"
+          }
+        ],
+        "relations": [
+          {
+            "predicate": "fire escape platform adjacent to court lines2",
+            "object_tag": "court lines2",
+            "idx": 32,
+            "confidence": 1.0
+          },
+          {
+            "predicate": "fire escape platform adjacent to door2",
+            "object_tag": "door2",
+            "idx": 29,
+            "confidence": 1.0
+          },
+          {
+            "predicate": "ceiling supports fire escape platform",
+            "object_tag": "ceiling",
+            "idx": 36,
+            "confidence": 1.0
+          },
+          {
+            "predicate": "advertisement3 is beside fire escape platform",
+            "object_tag": "advertisement3",
+            "idx": 30,
+            "confidence": 1.0
+          },
+          {
+            "predicate": "fire escape platform adjacent to court lines1",
+            "object_tag": "court lines1",
+            "idx": 23,
+            "confidence": 1.0
+          },
+          {
+            "predicate": "audience below fire escape platform",
+            "object_tag": "audience",
+            "idx": 26,
+            "confidence": 1.0
+          },
+          {
+            "predicate": "fire escape platform above seating",
+            "object_tag": "seating",
+            "idx": 24,
+            "confidence": 1.0
+          },
+          {
+            "predicate": "fire escape platform above man2",
+            "object_tag": "man2",
+            "idx": 15,
+            "confidence": 1.0
+          },
+          {
+            "predicate": "jersey4 near fire escape platform",
+            "object_tag": "jersey4",
+            "idx": 21,
+            "confidence": 1.0
+          },
+          {
+            "predicate": "man1 below fire escape platform",
+            "object_tag": "man1",
+            "idx": 0,
+            "confidence": 1.0
+          },
+          {
+            "predicate": "door1 adjacent to fire escape platform",
+            "object_tag": "door1",
+            "idx": 6,
+            "confidence": 1.0
+          },
+          {
+            "predicate": "bottle1 displayed close to fire escape platform",
+            "object_tag": "bottle1",
+            "idx": 2,
+            "confidence": 1.0
+          },
+          {
+            "predicate": "advertisement1 on same building as fire escape platform",
+            "object_tag": "advertisement1",
+            "idx": 8,
+            "confidence": 1.0
+          },
+          {
+            "predicate": "fire escape platform below banner",
+            "object_tag": "banner",
+            "idx": 17,
+            "confidence": 1.0
+          },
+          {
+            "predicate": "fire escape platform below logo",
+            "object_tag": "logo",
+            "idx": 22,
+            "confidence": 1.0
+          },
+          {
+            "predicate": "fire escape platform below fire escape roof",
+            "object_tag": "fire escape roof",
+            "idx": 20,
+            "confidence": 1.0
+          },
+          {
+            "predicate": "bottle2 on wall close to fire escape platform",
+            "object_tag": "bottle2",
+            "idx": 10,
+            "confidence": 1.0
+          },
+          {
+            "predicate": "fire escape platform below window2",
+            "object_tag": "window2",
+            "idx": 16,
+            "confidence": 1.0
+          },
+          {
+            "predicate": "advertisement2 attached to fire escape platform",
+            "object_tag": "advertisement2",
+            "idx": 18,
+            "confidence": 1.0
+          }
+        ]
+      },
+      {
+        "idx": 28,
+        "box": [
+          120.059,
+          348.726,
+          133.891,
+          358.362
+        ],
+        "score": 0.374,
+        "label": "shoes",
+        "attributes": "Red and white sneakers",
+        "layer_id": 1,
+        "layer_mapping": [],
+        "relations": []
+      },
+      {
+        "idx": 29,
+        "box": [
+          35.286,
+          152.922,
+          143.607,
+          370.235
+        ],
+        "score": 0.372,
+        "label": "door",
+        "attributes": "Door in a basketball court",
+        "layer_id": 1,
+        "layer_mapping": [],
+        "relations": [
+          {
+            "predicate": "door2 below ceiling",
+            "object_tag": "ceiling",
+            "idx": 36,
+            "confidence": 1.0
+          },
+          {
+            "predicate": "advertisement3 adjacent to door2",
+            "object_tag": "advertisement3",
+            "idx": 30,
+            "confidence": 0.5
+          },
+          {
+            "predicate": "fire escape platform adjacent to door2",
+            "object_tag": "fire escape platform",
+            "idx": 27,
+            "confidence": 1.0
+          },
+          {
+            "predicate": "door2 below advertisement1",
+            "object_tag": "advertisement1",
+            "idx": 8,
+            "confidence": 1.0
+          },
+          {
+            "predicate": "fire escape roof adjacent to door2",
+            "object_tag": "fire escape roof",
+            "idx": 20,
+            "confidence": 1.0
+          },
+          {
+            "predicate": "bottle2 is positioned over door2",
+            "object_tag": "bottle2",
+            "idx": 10,
+            "confidence": 1.0
+          },
+          {
+            "predicate": "door2 is adjacent to door1",
+            "object_tag": "door1",
+            "idx": 6,
+            "confidence": 1.0
+          },
+          {
+            "predicate": "seating adjacent to door2",
+            "object_tag": "seating",
+            "idx": 24,
+            "confidence": 1.0
+          }
+        ]
+      },
+      {
+        "idx": 30,
+        "box": [
+          607.627,
+          10.431,
+          950.413,
+          215.479
+        ],
+        "score": 0.372,
+        "label": "advertisement",
+        "attributes": "Advertisement for drink on side of road",
+        "layer_id": 1,
+        "layer_mapping": [],
+        "relations": [
+          {
+            "predicate": "ceiling above advertisement3",
+            "object_tag": "ceiling",
+            "idx": 36,
+            "confidence": 1.0
+          },
+          {
+            "predicate": "seating below advertisement3",
+            "object_tag": "seating",
+            "idx": 24,
+            "confidence": 1.0
+          },
+          {
+            "predicate": "advertisement3 adjacent to door2",
+            "object_tag": "door2",
+            "idx": 29,
+            "confidence": 0.5
+          },
+          {
+            "predicate": "advertisement3 above man2",
+            "object_tag": "man2",
+            "idx": 15,
+            "confidence": 1.0
+          },
+          {
+            "predicate": "advertisement3 adjacent to jersey4",
+            "object_tag": "jersey4",
+            "idx": 21,
+            "confidence": 1.0
+          },
+          {
+            "predicate": "door1 next to advertisement3",
+            "object_tag": "door1",
+            "idx": 6,
+            "confidence": 1.0
+          },
+          {
+            "predicate": "fire escape roof adjacent to advertisement3",
+            "object_tag": "fire escape roof",
+            "idx": 20,
+            "confidence": 1.0
+          },
+          {
+            "predicate": "advertisement1 beside advertisement3",
+            "object_tag": "advertisement1",
+            "idx": 8,
+            "confidence": 1.0
+          },
+          {
+            "predicate": "advertisement3 features bottle2",
+            "object_tag": "bottle2",
+            "idx": 10,
+            "confidence": 1.0
+          },
+          {
+            "predicate": "advertisement3 is beside fire escape platform",
+            "object_tag": "fire escape platform",
+            "idx": 27,
+            "confidence": 1.0
+          },
+          {
+            "predicate": "window2 adjacent to advertisement3",
+            "object_tag": "window2",
+            "idx": 16,
+            "confidence": 1.0
+          },
+          {
+            "predicate": "advertisement3 features bottle1",
+            "object_tag": "bottle1",
+            "idx": 2,
+            "confidence": 1.0
+          }
+        ]
+      },
+      {
+        "idx": 31,
+        "box": [
+          466.436,
+          90.622,
+          504.947,
+          115.004
+        ],
+        "score": 0.364,
+        "label": "emergency exit sign",
+        "attributes": "Emergency exit sign in window",
+        "layer_id": 1,
+        "layer_mapping": [],
+        "relations": []
+      },
+      {
+        "idx": 32,
+        "box": [
+          166.856,
+          368.841,
+          622.348,
+          470.059
+        ],
+        "score": 0.324,
+        "label": "court lines",
+        "attributes": "Orange and black basketball court",
+        "layer_id": 1,
+        "layer_mapping": [],
+        "relations": [
+          {
+            "predicate": "audience stand before court lines2",
+            "object_tag": "audience",
+            "idx": 26,
+            "confidence": 1.0
+          },
+          {
+            "predicate": "fire escape platform adjacent to court lines2",
+            "object_tag": "fire escape platform",
+            "idx": 27,
+            "confidence": 1.0
+          },
+          {
+            "predicate": "court lines1 intersecting with court lines2",
+            "object_tag": "court lines1",
+            "idx": 23,
+            "confidence": 1.0
+          },
+          {
+            "predicate": "court lines2 below advertisement2",
+            "object_tag": "advertisement2",
+            "idx": 18,
+            "confidence": 1.0
+          },
+          {
+            "predicate": "court lines2 below banner",
+            "object_tag": "banner",
+            "idx": 17,
+            "confidence": 1.0
+          },
+          {
+            "predicate": "court lines2 below logo",
+            "object_tag": "logo",
+            "idx": 22,
+            "confidence": 0.5
+          },
+          {
+            "predicate": "man1 within boundaries of court lines2",
+            "object_tag": "man1",
+            "idx": 0,
+            "confidence": 1.0
+          }
+        ]
+      },
+      {
+        "idx": 33,
+        "box": [
+          895.511,
+          332.972,
+          905.472,
+          347.051
+        ],
+        "score": 0.313,
+        "label": "shoes",
+        "attributes": "Brown leather dress shoes",
+        "layer_id": 1,
+        "layer_mapping": [],
+        "relations": []
+      },
+      {
+        "idx": 34,
+        "box": [
+          910.608,
+          322.752,
+          926.223,
+          336.888
+        ],
+        "score": 0.31,
+        "label": "shoes",
+        "attributes": "Brown leather shoes",
+        "layer_id": 1,
+        "layer_mapping": [],
+        "relations": []
+      },
+      {
+        "idx": 35,
+        "box": [
+          688.322,
+          320.301,
+          700.905,
+          332.961
+        ],
+        "score": 0.303,
+        "label": "shoes",
+        "attributes": "White sneakers",
+        "layer_id": 1,
+        "layer_mapping": [],
+        "relations": []
+      },
+      {
+        "idx": 36,
+        "box": [
+          -4.808,
+          0.134,
+          951.827,
+          68.443
+        ],
+        "score": 0.303,
+        "label": "ceiling",
+        "attributes": "Ceiling with lights and glass panels",
+        "layer_id": 1,
+        "layer_mapping": [],
+        "relations": [
+          {
+            "predicate": "door2 below ceiling",
+            "object_tag": "door2",
+            "idx": 29,
+            "confidence": 1.0
+          },
+          {
+            "predicate": "door1 under ceiling",
+            "object_tag": "door1",
+            "idx": 6,
+            "confidence": 1.0
+          },
+          {
+            "predicate": "ceiling above man2",
+            "object_tag": "man2",
+            "idx": 15,
+            "confidence": 1.0
+          },
+          {
+            "predicate": "jersey4 attached to ceiling",
+            "object_tag": "jersey4",
+            "idx": 21,
+            "confidence": 1.0
+          },
+          {
+            "predicate": "fire escape roof below ceiling",
+            "object_tag": "fire escape roof",
+            "idx": 20,
+            "confidence": 1.0
+          },
+          {
+            "predicate": "ceiling above advertisement3",
+            "object_tag": "advertisement3",
+            "idx": 30,
+            "confidence": 1.0
+          },
+          {
+            "predicate": "ceiling supports fire escape platform",
+            "object_tag": "fire escape platform",
+            "idx": 27,
+            "confidence": 1.0
+          },
+          {
+            "predicate": "bottle2 hangs from ceiling",
+            "object_tag": "bottle2",
+            "idx": 10,
+            "confidence": 1.0
+          },
+          {
+            "predicate": "advertisement1 adjacent to ceiling",
+            "object_tag": "advertisement1",
+            "idx": 8,
+            "confidence": 1.0
+          },
+          {
+            "predicate": "bottle1 hanging from ceiling",
+            "object_tag": "bottle1",
+            "idx": 2,
+            "confidence": 1.0
+          },
+          {
+            "predicate": "window2 below ceiling",
+            "object_tag": "window2",
+            "idx": 16,
+            "confidence": 0.5
+          }
+        ]
+      },
+      {
+        "idx": 37,
+        "box": [
+          92.341,
+          355.057,
+          105.62,
+          362.338
+        ],
+        "score": 0.301,
+        "label": "shoes",
+        "attributes": "Red and white sneakers",
+        "layer_id": 1,
+        "layer_mapping": [],
+        "relations": []
+      },
+      {
+        "idx": 38,
+        "box": [
+          309.965,
+          345.152,
+          324.306,
+          362.47
+        ],
+        "score": 0.772,
+        "label": "number",
+        "attributes": "Yellow basketball jersey with red number 1",
+        "layer_id": 2,
+        "layer_mapping": [],
+        "relations": []
+      },
+      {
+        "idx": 39,
+        "box": [
+          45.772,
+          320.904,
+          130.347,
+          371.234
+        ],
+        "score": 0.58,
+        "label": "steps",
+        "attributes": "",
+        "layer_id": 1,
+        "layer_mapping": [],
+        "relations": []
+      },
+      {
+        "idx": 40,
+        "box": [
+          0.22,
+          39.675,
+          205.179,
+          146.834
+        ],
+        "score": 0.562,
+        "label": "banners",
+        "attributes": "",
+        "layer_id": 1,
+        "layer_mapping": [],
+        "relations": []
+      },
+      {
+        "idx": 41,
+        "box": [
+          84.202,
+          256.16,
+          97.172,
+          287.005
+        ],
+        "score": 0.499,
+        "label": "number",
+        "attributes": "Number 7 on shirt",
+        "layer_id": 2,
+        "layer_mapping": [],
+        "relations": []
+      },
+      {
+        "idx": 42,
+        "box": [
+          311.261,
+          158.741,
+          556.496,
+          365.813
+        ],
+        "score": 0.434,
+        "label": "banners",
+        "attributes": "",
+        "layer_id": 1,
+        "layer_mapping": [],
+        "relations": []
+      },
+      {
+        "idx": 43,
+        "box": [
+          402.094,
+          141.103,
+          506.417,
+          214.242
+        ],
+        "score": 0.422,
+        "label": "label",
+        "attributes": "",
+        "layer_id": 1,
+        "layer_mapping": [],
+        "relations": []
+      },
+      {
+        "idx": 44,
+        "box": [
+          4.551,
+          346.78,
+          15.272,
+          361.99
+        ],
+        "score": 0.399,
+        "label": "number",
+        "attributes": "Yellow jersey with black lettering",
+        "layer_id": 2,
+        "layer_mapping": [],
+        "relations": []
+      },
+      {
+        "idx": 45,
+        "box": [
+          311.765,
+          112.11,
+          593.544,
+          171.432
+        ],
+        "score": 0.392,
+        "label": "railing",
+        "attributes": "Metal railing on side of building",
+        "layer_id": 2,
+        "layer_mapping": [],
+        "relations": []
+      },
+      {
+        "idx": 46,
+        "box": [
+          425.93,
+          198.079,
+          469.018,
+          225.581
+        ],
+        "score": 0.386,
+        "label": "backboard",
+        "attributes": "White backboard with black lettering",
+        "layer_id": 2,
+        "layer_mapping": [],
+        "relations": []
+      },
+      {
+        "idx": 47,
+        "box": [
+          0.026,
+          333.227,
+          18.038,
+          384.651
+        ],
+        "score": 0.366,
+        "label": "t - shirt",
+        "attributes": "",
+        "layer_id": 1,
+        "layer_mapping": [],
+        "relations": []
+      },
+      {
+        "idx": 48,
+        "box": [
+          240.828,
+          253.008,
+          279.388,
+          312.723
+        ],
+        "score": 0.365,
+        "label": "ventilation system",
+        "attributes": "",
+        "layer_id": 1,
+        "layer_mapping": [],
+        "relations": []
+      },
+      {
+        "idx": 49,
+        "box": [
+          302.237,
+          330.302,
+          333.439,
+          392.41
+        ],
+        "score": 0.344,
+        "label": "t - shirt",
+        "attributes": "Yellow basketball jersey with number 62",
+        "layer_id": 2,
+        "layer_mapping": [],
+        "relations": []
+      },
+      {
+        "idx": 50,
+        "box": [
+          895.18,
+          27.051,
+          945.553,
+          136.312
+        ],
+        "score": 0.328,
+        "label": "glass",
+        "attributes": "",
+        "layer_id": 1,
+        "layer_mapping": [],
+        "relations": []
+      },
+      {
+        "idx": 51,
+        "box": [
+          368.641,
+          277.188,
+          494.195,
+          315.904
+        ],
+        "score": 0.305,
+        "label": "number",
+        "attributes": "",
+        "layer_id": 1,
+        "layer_mapping": [],
+        "relations": []
+      }
+    ]
+  }
+]

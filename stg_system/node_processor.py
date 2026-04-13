@@ -198,8 +198,8 @@ class FrameProcessor:
         dedupe_decision = None
         fallback_type = self._infer_entity_type(objects_by_idx[fallback_primary_idx])
 
-        # llm处理
-        if self.llm_decider is not None:
+        # llm处理：仅在存在多个去重候选时才调用，cur_cmp==1 直接走规则
+        if self.llm_decider is not None and len(candidates.cur_cmp) > 1:
             dedupe_decision = self.llm_decider.decide_frame_dedupe(candidates, objects_by_idx, fallback_type)
             if dedupe_decision is not None:
                 candidate_idxs = [item.idx for item in candidates.cur_cmp]
@@ -650,7 +650,7 @@ class FrameProcessor:
             src_node = self.graph.nodes[src_node_id]
 
 
-                        # layer_mapping 明确表达 owner-attached 关系：只去重，不冲突，不修改。
+            # layer_mapping 明确表达 owner-attached 关系：只去重，不冲突，不修改。
             for lay_map in obj.get("layer_mapping", []) or []:
                 attached_idx_raw = lay_map.get("idx", -1)
                 if isinstance(attached_idx_raw, int):
@@ -717,7 +717,7 @@ class FrameProcessor:
                 )
 
 
-
+            # 处理关系
             for rel in obj.get("relations", []) or []:
                 tgt_idx = None
                 rel_idx = rel.get("idx")
