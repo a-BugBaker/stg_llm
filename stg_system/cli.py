@@ -52,7 +52,15 @@ def parse_args() -> argparse.Namespace:
     parser.add_argument("--llm-model", default="gpt-4o-mini")
     parser.add_argument("--llm-api-key", default=os.getenv("OPENAI_API_KEY", ""))
     parser.add_argument("--llm-timeout", type=int, default=40)
+    parser.add_argument(
+        "--llm-timeout-retries",
+        type=int,
+        default=0,
+        help="Retry count when an LLM request times out",
+    )
     parser.add_argument("--llm-temperature", type=float, default=0.1)
+    parser.add_argument("--question", default=None, help="Natural language question for node-id retrieval")
+    parser.add_argument("--retrieval-output", default=None, help="Output path for retrieval result JSON")
     return parser.parse_args()
 
 
@@ -73,6 +81,7 @@ def main() -> None:
             api_key=args.llm_api_key,
             model=args.llm_model,
             timeout_seconds=args.llm_timeout,
+            timeout_retries=args.llm_timeout_retries,
             temperature=args.llm_temperature,
         ),
     )
@@ -90,6 +99,13 @@ def main() -> None:
     report_path.parent.mkdir(parents=True, exist_ok=True)
     report_path.write_text(json.dumps(report, ensure_ascii=False, indent=2), encoding="utf-8")
 
+    retrieval_path = None
+    if args.question:
+        retrieval = pipeline.retrieve_by_question(args.question)
+        retrieval_path = Path(args.retrieval_output) if args.retrieval_output else output_dir / "nodeid_retrieval.json"
+        retrieval_path.parent.mkdir(parents=True, exist_ok=True)
+        retrieval_path.write_text(json.dumps(retrieval, ensure_ascii=False, indent=2), encoding="utf-8")
+
     print("Build finished")
     print(f"Frames: {summary.total_frames}")
     print(f"Processed objects: {summary.total_objects}")
@@ -102,6 +118,8 @@ def main() -> None:
     print(f"Sample ID: {args.sample_id}")
     print(f"Snapshot: {out_path}")
     print(f"Acceptance report: {report_path}")
+    if retrieval_path is not None:
+        print(f"Question retrieval: {retrieval_path}")
 
 
 if __name__ == "__main__":

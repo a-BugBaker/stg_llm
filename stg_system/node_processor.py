@@ -20,7 +20,7 @@ from typing import Dict, List, Optional, Set, Tuple
 
 from .candidate_resolver import CandidateResult, get_candidates
 from .config import EngineConfig
-from .geometry import center, iou
+from .geometry import area, center, iou
 from .llm_decider import LLMDecider
 from .models import (
     DynamicState,
@@ -102,15 +102,11 @@ class FrameProcessor:
         """实体类型初判规则。
 
         1. layer_id > 1 视为 attached。
-        2. 命中 moving_labels 视为 dynamic。
-        3. 其余视为 static。
+        2. 其余统一视为 static（暂不使用dynamic判定）。
         """
         layer_id = int(obj.get("layer_id", 1))
-        label = str(obj.get("label", "")).lower()
         if layer_id > 1:
             return EntityType.ATTACHED
-        if label in self.config.moving_labels:
-            return EntityType.DYNAMIC
         return EntityType.STATIC
     
     def _attached_entity_type(self, obj:dict)->EntityType| None:
@@ -121,14 +117,76 @@ class FrameProcessor:
         if layer_id > 1:
             return EntityType.ATTACHED
 
-    def _pick_primary_idx(self, candidates: CandidateResult, objects_by_idx: Dict[int, dict]) -> int:
-        """规则回退：按 score 选主对象。"""
-        best_idx = candidates.cur_cmp[0].idx
-        best_score = float(objects_by_idx.get(best_idx, {}).get("score", 0.0))
+    def _frame_area(self) -> float:
+        return float(self.config.thresholds.width) * float(self.config.thresholds.height)
+
+    def _box_area_ratio(self, box: List[float]) -> float:
+        frame_area = self._frame_area()
+        if frame_area <= 0.0:
+            return 0.0
+        return area(box) / frame_area
+
+    def _tier_iou_threshold(self, area_ratio: float, mode: str) -> float | None:
+        """按面积占比分段返回IoU阈值，<0.4%返回None表示不启用规则直判。"""
+        if area_ratio < 0.004:
+            return None
+        if area_ratio < 0.008:
+            return 0.98
+        if area_ratio < 0.03:
+            return 0.965 if mode == "dedupe" else 0.96
+        return 0.94
+
+    def _pair_rule_iou_threshold(self, box_a: List[float], box_b: List[float], mode: str) -> float | None:
+        """两个框都参与分段，取更严格阈值；任一框<0.4%则不走规则直判。"""
+        thr_a = self._tier_iou_threshold(self._box_area_ratio(box_a), mode)
+        thr_b = self._tier_iou_threshold(self._box_area_ratio(box_b), mode)
+        if thr_a is None or thr_b is None:
+            return None
+        return max(thr_a, thr_b)
+
+    def _split_dedupe_cmp_idxs(
+        self,
+        target_idx: int,
+        candidates: CandidateResult,
+        objects_by_idx: Dict[int, dict],
+    ) -> Tuple[List[int], List[int]]:
+        """将cur_cmp拆成规则必并组与原方法判定组。"""
+        target_obj = objects_by_idx.get(target_idx)
+        if target_obj is None:
+            return [], []
+
+        target_box = target_obj.get("box", [0, 0, 0, 0])
+        forced: Set[int] = {target_idx}
+        fallback: Set[int] = set()
+
         for item in candidates.cur_cmp:
-            score = float(objects_by_idx.get(item.idx, {}).get("score", 0.0))
+            cand_idx = int(item.idx)
+            if cand_idx == target_idx:
+                continue
+            cand_obj = objects_by_idx.get(cand_idx)
+            if cand_obj is None:
+                continue
+            cand_box = cand_obj.get("box", [0, 0, 0, 0])
+            pair_thr = self._pair_rule_iou_threshold(target_box, cand_box, mode="dedupe")
+            pair_iou = iou(target_box, cand_box)
+            if pair_thr is not None and pair_iou > pair_thr:
+                forced.add(cand_idx)
+            else:
+                fallback.add(cand_idx)
+
+        return sorted(forced), sorted(fallback)
+
+    def _pick_primary_idx(self, candidate_idxs: List[int], objects_by_idx: Dict[int, dict]) -> int:
+        """规则回退：按 score 选主对象。"""
+        if not candidate_idxs:
+            raise ValueError("candidate_idxs is empty")
+
+        best_idx = int(candidate_idxs[0])
+        best_score = float(objects_by_idx.get(best_idx, {}).get("score", 0.0))
+        for cand_idx in candidate_idxs:
+            score = float(objects_by_idx.get(int(cand_idx), {}).get("score", 0.0))
             if score > best_score:
-                best_idx = item.idx
+                best_idx = int(cand_idx)
                 best_score = score
         return best_idx
 
@@ -141,8 +199,26 @@ class FrameProcessor:
     ) -> int | None:
         """跨帧匹配。
 
-        优先 LLM，失败后回退几何+标签启发式。
+        先做规则直判（同标签+分段IoU），再走LLM，最后规则回退。
         """
+        if candidates.pre:
+            current_label = str(primary_obj.get("label", "")).lower()
+            current_box = primary_obj.get("box", [0, 0, 0, 0])
+
+            for item in candidates.pre:
+                node = self.graph.nodes[item.node_id]
+                node_label = node.latest_label().lower()
+                if node_label != current_label:
+                    continue
+                node_box = node.latest_box()
+                if node_box is None:
+                    continue
+                pair_thr = self._pair_rule_iou_threshold(current_box, node_box, mode="match")
+                if pair_thr is None:
+                    continue
+                if iou(current_box, node_box) > pair_thr:
+                    return node.id
+
         if self.llm_decider is not None:
             decision = self.llm_decider.decide_node_match(primary_obj, candidates, self.graph.nodes)
             self._record_llm_match_decision(
@@ -185,25 +261,30 @@ class FrameProcessor:
 
         关键点：
         1. 先定主对象（LLM/规则）。
-        2. 再做 entity_type 判定（LLM 可覆盖初判）。
-        3. 再做历史匹配（LLM/规则）。
+        2. 再做 entity_type 判定（仅规则，layer_id>1为attached）。
+        3. 再做历史匹配（规则/LLM）。
         4. 根据匹配结果选择新建或更新节点。
         5. 返回 node_id 与本次被合并处理的 idx 列表。
         """
         objects_by_idx = {int(obj["idx"]): obj for obj in objects}
 
-        # 规则回退测试
-        fallback_primary_idx = self._pick_primary_idx(candidates, objects_by_idx)
+        cur_cmp_idxs = sorted({int(item.idx) for item in candidates.cur_cmp if int(item.idx) in objects_by_idx})
+        if idx not in cur_cmp_idxs and idx in objects_by_idx:
+            cur_cmp_idxs.append(idx)
+
+        forced_merge_idxs, _ = self._split_dedupe_cmp_idxs(idx, candidates, objects_by_idx)
+
+        fallback_primary_idx = self._pick_primary_idx(cur_cmp_idxs, objects_by_idx)
         primary_idx = fallback_primary_idx
         dedupe_decision = None
-        fallback_type = self._infer_entity_type(objects_by_idx[fallback_primary_idx])
 
-        # llm处理：仅在存在多个去重候选时才调用，cur_cmp==1 直接走规则
-        if self.llm_decider is not None and len(candidates.cur_cmp) > 1:
-            dedupe_decision = self.llm_decider.decide_frame_dedupe(candidates, objects_by_idx, fallback_type)
+        # 旧方法判定仍保留：非规则直判候选继续走原链路（LLM可参与）。
+        if self.llm_decider is not None and len(cur_cmp_idxs) > 1:
+            dedupe_decision = self.llm_decider.decide_frame_dedupe(candidates, objects_by_idx)
             if dedupe_decision is not None:
-                candidate_idxs = [item.idx for item in candidates.cur_cmp]
-                accepted = dedupe_decision.primary_idx in candidate_idxs
+                candidate_idxs = [item.idx for item in candidates.cur_cmp if item.idx in objects_by_idx]
+                llm_primary = dedupe_decision.primary_idx
+                accepted = isinstance(llm_primary, int) and llm_primary in candidate_idxs
                 self._record_llm_dedupe_decision(
                     frame_id=frame_id,
                     target_idx=idx,
@@ -213,17 +294,13 @@ class FrameProcessor:
                     accepted=accepted,
                 )
                 if accepted:
-                    primary_idx = int(dedupe_decision.primary_idx)
-        primary_obj = objects_by_idx[primary_idx]
-        entity_type = self._infer_entity_type(primary_obj) # 这是防止llm无返回
-        if dedupe_decision is not None and dedupe_decision.entity_type is not None:
-            entity_type = dedupe_decision.entity_type
-        entity_type = self._attached_entity_type(primary_obj) or entity_type # 附属实体类型判定覆盖
+                    primary_idx = llm_primary
 
-        # 跨帧匹配
-        matched_node_id = self._match_existing_node(primary_obj, candidates, frame_id, primary_idx)
+        if not isinstance(primary_idx, int):
+            primary_idx = fallback_primary_idx
 
-        merged_idxs = [item.idx for item in candidates.cur_cmp]
+        # 规则直判命中的对象必须并入（包括target），fallback对象按旧方法判定。
+        merged_idxs = list(cur_cmp_idxs)
         if dedupe_decision is not None and dedupe_decision.merged_idxs:
             cleaned = []
             for m in dedupe_decision.merged_idxs:
@@ -231,10 +308,22 @@ class FrameProcessor:
                     val = int(m)
                 except Exception:
                     continue
-                if val in objects_by_idx:
+                if val in objects_by_idx and val in cur_cmp_idxs:
                     cleaned.append(val)
             if cleaned:
                 merged_idxs = sorted(set(cleaned))
+
+        if forced_merge_idxs:
+            merged_idxs = sorted(set(merged_idxs) | set(forced_merge_idxs))
+
+        if primary_idx not in merged_idxs:
+            primary_idx = self._pick_primary_idx(merged_idxs, objects_by_idx)
+
+        primary_obj = objects_by_idx[primary_idx]
+        entity_type = self._attached_entity_type(primary_obj) or self._infer_entity_type(primary_obj)
+
+        # 跨帧匹配
+        matched_node_id = self._match_existing_node(primary_obj, candidates, frame_id, primary_idx)
         if primary_idx not in merged_idxs:
             merged_idxs.append(primary_idx)
 

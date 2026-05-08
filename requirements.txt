@@ -2,3 +2,8 @@
 # 用于进度条显示
 
 tqdm
+pandas
+pyarrow
+huggingface_hub
+Pillow
+opencv-python

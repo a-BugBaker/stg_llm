@@ -58,6 +58,7 @@ class LLMConfig:
     api_key: str = field(default_factory=lambda: os.getenv("OPENAI_API_KEY", ""))
     model: str = "gpt-4o-mini"
     timeout_seconds: int = 40
+    timeout_retries: int = 0
     temperature: float = 0.1
 
 

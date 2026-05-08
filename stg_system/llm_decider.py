@@ -13,13 +13,19 @@ from __future__ import annotations
 """
 
 import json
+import logging
+import socket
 from dataclasses import dataclass
+import time
 import urllib.request
 from typing import Any, Dict, List, Optional
 
 from .candidate_resolver import CandidateResult
 from .config import LLMConfig
-from .models import EntityNode, EntityType, RelationEdge
+from .models import EntityNode, RelationEdge
+
+
+logger = logging.getLogger(__name__)
 
 
 @dataclass(slots=True)
@@ -27,7 +33,6 @@ class DedupeDecision:
     """本帧去重决策结果。"""
     primary_idx: Optional[int] = None
     merged_idxs: Optional[List[int]] = None
-    entity_type: Optional[EntityType] = None
 
 
 @dataclass(slots=True)
@@ -65,11 +70,10 @@ class LLMDecider:
         self,
         candidates: CandidateResult,
         objects_by_idx: Dict[int, dict],
-        fallback_type: EntityType,
     ) -> Optional[DedupeDecision]:
         """对本帧候选对象做去重判定。
 
-返回 primary_idx、merged_idxs、entity_type。
+返回 primary_idx、merged_idxs。
 调用失败时返回 None，让上层自动回退规则。
 """
         if not self.available():
@@ -107,33 +111,25 @@ class LLMDecider:
             "1) cmp_objects: objects that are considered duplicates of the same real entity in current frame.\n"
             "   - idx: object index in current frame (the only valid id space for primary_idx/merged_idxs).\n"
             "   - iou, distance, score, label, attributes: evidence for selecting primary object.\n"
-            "2) cur_context: nearby objects in current frame for disambiguation, NOT merge targets unless they are also in cmp_objects.\n"
-            "3) fallback_entity_type: rule-based fallback type, one of dynamic|static.\n\n"
+            "2) cur_context: nearby objects in current frame for disambiguation, NOT merge targets unless they are also in cmp_objects.\n\n"
             "Your task:\n"
             "- Select exactly one primary_idx from cmp_objects.idx.\n"
             "- Select merged_idxs as subset of cmp_objects.idx (can include all duplicates).\n"
-            "- Decide entity_type from dynamic|static.\n"
-            "- If uncertain, keep conservative and follow fallback_entity_type.\n\n"
+            "- If uncertain, keep conservative and select the highest-confidence detection as primary.\n\n"
             "Hard constraints (MUST):\n"
             "- primary_idx MUST be one of cmp_objects.idx.\n"
             "- merged_idxs MUST be array of unique integers, and every item MUST be in cmp_objects.idx.\n"
             "- merged_idxs MUST include primary_idx.\n"
             "- Do not output explanations or extra keys.\n\n"
             "Output format (strict JSON only):\n"
-            "{\"primary_idx\": int, \"merged_idxs\": int[], \"entity_type\": \"dynamic\"|\"static\"}\n\n"
+            "{\"primary_idx\": int, \"merged_idxs\": int[]}\n\n"
             f"cmp_objects={json.dumps(cmp_payload, ensure_ascii=False)}\n"
-            f"cur_context={json.dumps(context_payload, ensure_ascii=False)}\n"
-            f"fallback_entity_type={fallback_type.value}"
+            f"cur_context={json.dumps(context_payload, ensure_ascii=False)}"
         )
 
-        data = self._chat_json(prompt)
+        data = self._chat_json(prompt, task_name="frame_dedupe")
         if data is None:
             return None
-
-        try:
-            entity_type = EntityType(str(data.get("entity_type", fallback_type.value)))
-        except Exception:
-            entity_type = fallback_type
 
         merged_idxs = data.get("merged_idxs")
         if not isinstance(merged_idxs, list):
@@ -148,7 +144,7 @@ class LLMDecider:
             except Exception:
                 primary_idx = None
 
-        return DedupeDecision(primary_idx=primary_idx, merged_idxs=merged_idxs, entity_type=entity_type)
+        return DedupeDecision(primary_idx=primary_idx, merged_idxs=merged_idxs)
 
     def decide_node_match(
         self,
@@ -196,7 +192,7 @@ class LLMDecider:
             f"candidate_nodes={json.dumps(pre_payload, ensure_ascii=False)}"
         )
 
-        data = self._chat_json(prompt)
+        data = self._chat_json(prompt, task_name="node_match")
         if data is None:
             return None
 
@@ -223,8 +219,8 @@ class LLMDecider:
             {
                 "edge_id": edge.id,
                 "describe": edge.describe,
-                "valid_at": edge.valid_at,
-                "invalid_at": edge.invalid_at,
+                # "valid_at": edge.valid_at,
+                # "invalid_at": edge.invalid_at,
             }
             for edge in active_edges
         ]
@@ -248,12 +244,18 @@ class LLMDecider:
             f"existing_relations={json.dumps(old_payload, ensure_ascii=False)}"
         )
 
-        data = self._chat_json(prompt)
+        data = self._chat_json(prompt, task_name="edge_action")
         if data is None:
             return None
 
         action = str(data.get("action", "new")).strip().lower()
         if action not in {"duplicate", "conflict", "new"}:
+            logger.warning(
+                "LLM returned invalid edge action. task=%s action=%r payload=%s",
+                "edge_action",
+                action,
+                self._preview_text(json.dumps(data, ensure_ascii=False)),
+            )
             action = "new"
         return EdgeDecision(action=action)
 
@@ -297,7 +299,7 @@ class LLMDecider:
             f"owner_candidates={json.dumps(candidates_payload, ensure_ascii=False)}"
         )
 
-        data = self._chat_json(prompt)
+        data = self._chat_json(prompt, task_name="attached_owner")
         if data is None:
             return None
 
@@ -309,7 +311,7 @@ class LLMDecider:
         except Exception:
             return OwnerDecision(owner_node_id=None)
 
-    def _chat_json(self, prompt: str) -> Optional[Dict[str, Any]]:
+    def _chat_json(self, prompt: str, task_name: str) -> Optional[Dict[str, Any]]:
         """统一的 Chat Completions JSON 调用入口。
 
 约束：
@@ -337,10 +339,60 @@ class LLMDecider:
             },
         )
 
+        max_attempts = max(1, int(self.config.timeout_retries) + 1)
+        raw_text: Optional[str] = None
+        for attempt in range(1, max_attempts + 1):
+            try:
+                with urllib.request.urlopen(req, timeout=self.config.timeout_seconds) as resp:
+                    raw_text = resp.read().decode("utf-8")
+                break
+            except Exception as exc:
+                is_timeout = isinstance(exc, (TimeoutError, socket.timeout)) or "timed out" in str(exc).lower()
+                if is_timeout and attempt < max_attempts:
+                    logger.warning(
+                        "LLM request timed out. task=%s model=%s attempt=%d/%d timeout=%ss; retrying. error_type=%s error=%s",
+                        task_name,
+                        self.config.model,
+                        attempt,
+                        max_attempts,
+                        self.config.timeout_seconds,
+                        type(exc).__name__,
+                        exc,
+                    )
+                    time.sleep(min(2.0, float(attempt)))
+                    continue
+
+                logger.warning(
+                    "LLM request failed. task=%s model=%s base_url=%s attempt=%d/%d error_type=%s error=%s",
+                    task_name,
+                    self.config.model,
+                    self.config.base_url,
+                    attempt,
+                    max_attempts,
+                    type(exc).__name__,
+                    exc,
+                )
+                return None
+
+        if raw_text is None:
+            logger.warning(
+                "LLM request produced no response text. task=%s model=%s attempts=%d",
+                task_name,
+                self.config.model,
+                max_attempts,
+            )
+            return None
+
         try:
-            with urllib.request.urlopen(req, timeout=self.config.timeout_seconds) as resp:
-                payload = json.loads(resp.read().decode("utf-8"))
-        except Exception:
+            payload = json.loads(raw_text)
+        except Exception as exc:
+            logger.warning(
+                "LLM response JSON decode failed. task=%s error_type=%s error=%s raw_preview=%s",
+                task_name,
+                type(exc).__name__,
+                exc,
+                self._preview_text(raw_text),
+            )
             return None
 
         try:
@@ -348,6 +400,40 @@ class LLMDecider:
             if isinstance(content, list):
                 text_parts = [item.get("text", "") for item in content if isinstance(item, dict)]
                 content = "".join(text_parts)
-            return json.loads(content)
-        except Exception:
+        except Exception as exc:
+            logger.warning(
+                "LLM response content extraction failed. task=%s error_type=%s error=%s payload_preview=%s",
+                task_name,
+                type(exc).__name__,
+                exc,
+                self._preview_text(json.dumps(payload, ensure_ascii=False)),
+            )
             return None
+
+        if not isinstance(content, str) or not content.strip():
+            logger.warning(
+                "LLM response content empty. task=%s content_type=%s payload_preview=%s",
+                task_name,
+                type(content).__name__,
+                self._preview_text(json.dumps(payload, ensure_ascii=False)),
+            )
+            return None
+
+        try:
+            return json.loads(content)
+        except Exception as exc:
+            logger.warning(
+                "LLM content JSON decode failed. task=%s error_type=%s error=%s content_preview=%s",
+                task_name,
+                type(exc).__name__,
+                exc,
+                self._preview_text(content),
+            )
+            return None
+
+    @staticmethod
+    def _preview_text(text: str, limit: int = 400) -> str:
+        cleaned = " ".join(str(text).split())
+        if len(cleaned) <= limit:
+            return cleaned
+        return cleaned[:limit] + "...(truncated)"

@@ -16,6 +16,7 @@ from typing import Any, Dict, List
 
 from .config import EngineConfig
 from .models import GraphState
+from .nodeid_retriever import NodeIdKeywordRetriever
 from .node_processor import FrameProcessResult, FrameProcessor
 from .storage import Neo4jConfig, Neo4jStorage
 
@@ -118,6 +119,11 @@ class SpatialTemporalPipeline:
         from .evaluation import build_design_acceptance_report
 
         return build_design_acceptance_report(self.graph, summary, self.config)
+
+    def retrieve_by_question(self, question: str) -> Dict[str, Any]:
+        """基于自然语言问题执行 node_id 关键词检索。"""
+        retriever = NodeIdKeywordRetriever(self.graph)
+        return retriever.search(question)
 
     def _merge_summary(self, summary: PipelineSummary, result: FrameProcessResult) -> None:
         """合并单帧统计到总统计。"""

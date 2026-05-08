@@ -1,5 +1,8 @@
 import json
 import os
+from sentence_transformers import SentenceTransformer
+from sklearn.metrics.pairwise import cosine_similarity
+import numpy as np
 
 def remove_tag_field(input_file, output_file=None):
     """
@@ -59,47 +62,122 @@ def keep_first_n_frames(input_file, n_frames=2, output_file=None):
     print(f"✓ 输入文件: {input_file}")
     print(f"✓ 输出文件: {output_file}")
 
-def filter_first_frame_by_idxs(input_file, allowed_idxs, output_file=None, frame_index=0):
-    """
-    只保留指定帧（默认第0帧）中 idx 属于 allowed_idxs 的对象，保存为新文件或覆盖原文件。
 
-    Args:
-        input_file: 输入 JSON 路径
-        allowed_idxs: 可迭代的 idx 集合（list/tuple/set），元素为 int 或可转换为 int
-        output_file: 输出路径，默认覆盖输入文件
-        frame_index: 要过滤的帧索引，默认 0（第一帧）
-    """
-    if output_file is None:
-        output_file = input_file
+def box_width(box) -> float:
+    """计算检测框宽度，自动裁剪为非负值。"""
+    return max(0.0, float(box[2]) - float(box[0]))
 
-    with open(input_file, 'r', encoding='utf-8') as f:
+
+def box_height(box) -> float:
+    """计算检测框高度，自动裁剪为非负值。"""
+    return max(0.0, float(box[3]) - float(box[1]))
+
+
+def area(box) -> float:
+    """计算检测框面积。"""
+    return box_width(box) * box_height(box)
+
+
+def iou(box_a, box_b) -> float:
+    """计算两个检测框的 IoU。
+
+返回值范围 [0, 1]。当并集为 0 时返回 0。
+"""
+    ax1, ay1, ax2, ay2 = map(float, box_a)
+    bx1, by1, bx2, by2 = map(float, box_b)
+
+    inter_x1 = max(ax1, bx1)
+    inter_y1 = max(ay1, by1)
+    inter_x2 = min(ax2, bx2)
+    inter_y2 = min(ay2, by2)
+
+    inter_w = max(0.0, inter_x2 - inter_x1)
+    inter_h = max(0.0, inter_y2 - inter_y1)
+    inter_area = inter_w * inter_h
+
+    union = area(box_a) + area(box_b) - inter_area
+    if union <= 0.0:
+        return 0.0
+    return inter_area / union
+
+
+
+    
+def get_diff_iou(input, idx1,idx2,frame1,frame2):
+    """
+    求不同帧的特定idx的iou
+    """
+    with open(input, 'r', encoding='utf-8') as f:
         data = json.load(f)
 
-    if not isinstance(data, list) or frame_index >= len(data):
-        raise ValueError("输入文件应为帧列表，且 frame_index 在范围内")
+    if not isinstance(data, list) or frame1 >= len(data) or frame2 >= len(data):
+        raise ValueError("输入文件应为帧列表，且 frame1 和 frame2 在范围内")
 
-    allowed_set = set(int(x) for x in allowed_idxs)
-    frame = data[frame_index]
-    if 'objects' in frame and isinstance(frame['objects'], list):
-        filtered = [obj for obj in frame['objects'] if int(obj.get('idx', -1)) in allowed_set]
-        frame['objects'] = filtered
+    obj1 = next((obj for obj in data[frame1].get('objects', []) if int(obj.get('idx', -1)) == idx1), None)
+    obj2 = next((obj for obj in data[frame2].get('objects', []) if int(obj.get('idx', -1)) == idx2), None)
 
-    with open(output_file, 'w', encoding='utf-8') as f:
-        json.dump(data, f, ensure_ascii=False, indent=2)
+    if obj1 is None or obj2 is None:
+        raise ValueError("未找到指定idx的对象")
 
-    print(f"✓ 第{frame_index}帧已保留 idx 在 {sorted(allowed_set)} 的对象")
-    print(f"✓ 输入文件: {input_file}")
-    print(f"✓ 输出文件: {output_file}")
+    print(f"label:{obj1['label']},{obj2['label']}")
+    ans = iou(obj1.get('box', []), obj2.get('box'))  
+    print(f"✓ 已成功计算IoU: {ans}")
+
+def get_area_ratio(input,idx,frame,w,h):
+    """
+    求特定idx占总体的面积比例
+    """
+    with open(input, 'r', encoding='utf-8') as f:
+        data = json.load(f)
+
+    obj = next((obj for obj in data[frame].get('objects', []) if int(obj.get('idx', -1)) == idx), None)
+
+    print(f"label:{obj['label']},frame:{frame}")
+    area_ratio = area(obj.get('box', [])) / (w * h) if w > 0 and h > 0 else 0.0
+    print(f"✓ 已成功计算面积比例: {area_ratio}")
 
 
+def compute_embedding_similarity(input_file, data:list[tuple[str, str]], model_name='all-MiniLM-L6-v2'):
+    """
+    使用 SentenceTransformer 计算两个不同帧中对象的相似度
+    
+    将对象的 label 和 attributes 结合作为文本，使用预训练的 SentenceTransformer 模型
+    生成嵌入向量，然后计算余弦相似度。
+    
+    Args:
+        input_file: 输入JSON文件路径
+        idx1: 第一帧中的对象索引
+        frame1: 第一个对象所在的帧号
+        idx2: 第二帧中的对象索引
+        frame2: 第二个对象所在的帧号
+        model_name: SentenceTransformer 模型名称，默认为 'all-MiniLM-L6-v2'
+    
+    Returns:
+        float: 相似度值，范围 [0, 1]
+    """
+    # 加载 SentenceTransformer 模型
+    print(f"✓ 加载模型: {model_name}")
+    model = SentenceTransformer(model_name)
+        
+    for text1, text2 in data:
+        print(f"✓ 计算文本相似度:")
+        print(f"  Text 1: '{text1}'")
+        print(f"  Text 2: '{text2}'")
+        
+        
+        # 生成嵌入
+        embeddings = model.encode([text1, text2])
+        
+        # 计算余弦相似度
+        similarity = cosine_similarity([embeddings[0]], [embeddings[1]])[0][0]
+        
+        print(f"✓ 文本相似度: {similarity:.4f}")
+   
     
 
 
 if __name__ == '__main__':
-    # 定义文件路径
-    less_move_file = './data/less_move copy 2.json'
-    output = './data/test/1.json'
-    
-    # 执行只保留前2帧的操作
-    filter_first_frame_by_idxs(output,[4,59,70,2,44,49,24,14],frame_index=0)
+    import pandas as pd
 
+    # Login using e.g. `huggingface-cli login` to access this dataset
+    df = pd.read_parquet("hf://datasets/ellisbrown/OpenEQA/v0/test-00000-of-00001.parquet")
